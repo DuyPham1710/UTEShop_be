@@ -4,17 +4,17 @@ Backend API cho ứng dụng UTEShop sử dụng ExpressJS và MongoDB với ch�
 
 ## Tính năng
 
-- ✅ Đăng ký tài khoản với OTP
-- ✅ Đăng nhập với JWT
-- ✅ Xác thực OTP qua email/phone
-- ✅ Refresh token
-- ✅ Middleware xác thực
-- ✅ Quản lý profile người dùng
-- ✅ Cập nhật thông tin cá nhân
-- ✅ Đổi mật khẩu
-- ✅ Xóa tài khoản
-- ✅ **Validation với DTO**
-- ✅ **Tách biệt Service theo domain**
+- Đăng ký tài khoản với OTP
+- Đăng nhập với JWT
+- Xác thực OTP qua email/phone
+- Refresh token
+- Middleware xác thực
+- Quản lý profile người dùng
+- Cập nhật thông tin cá nhân
+- Đổi mật khẩu
+- Xóa tài khoản
+- **Validation với DTO**
+- **Tách biệt Service theo domain**
 
 ## Cài đặt
 
@@ -185,7 +185,34 @@ Body:
   "password": "current_password"
 }
 ```
+#### 11. Quên mật khẩu:
 
+Nhấn nút gửi OTP → gọi API `reSendOTP`:
+
+POST: 
+```
+http://localhost:3000/v1/api/resend-otp
+```
+Body (raw):
+```
+{
+    "email": "user@example.com"
+}
+```
+Sau đó, khi user nhập đầy đủ thông tin, nhấn đổi mật khẩu, gọi API:
+
+POST: 
+```
+http://localhost:3000/v1/api/forgot-password
+```
+Body (raw):
+```
+{
+    "email": "user@example.com",
+    "otp": "725976",
+    "newPassword": "datVo001!"
+}
+```
 ## Luồng hoạt động
 
 ### Đăng ký:
@@ -206,6 +233,11 @@ Body:
 - Access token có thời hạn 15 phút
 - Refresh token có thời hạn 7 ngày
 - Sử dụng refresh token để lấy access token mới
+
+### Quên mật khẩu:
+- User nhập vào email, bấm chọn quên mật khẩu
+- User nhập vào email, sau đó bấm chọn nhận mã OTP
+- User nhập vào đầy đủ 4 fields, email, otp, newPassword và re-type của newPassword
 
 ## Cấu trúc dự án
 
