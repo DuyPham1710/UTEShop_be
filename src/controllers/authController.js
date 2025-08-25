@@ -103,6 +103,40 @@ const verifyOTP = async (req, res) => {
     }
 };
 
+// Forgot password
+const forgotPassword = async (req, res) => {
+    try {
+        const { email, otp, newPassword } = req.body;
+        // Validation
+        if (!email) {
+            return res.status(400).json({
+                success: false,
+                message: 'Email is required'
+            });
+        }
+        const isOTPValid = await OTPService.verifyOTP(email, otp);
+        if (!isOTPValid.success) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid or expired OTP'
+            });
+        }
+        const result = await AuthService.changePassword(email, newPassword);
+
+        if (result.success) {
+            return res.status(200).json(result);
+        } else {
+            return res.status(400).json(result);
+        }
+    } catch (error) {
+        console.error('Error in forgotPassword controller:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+};
+
 // Resend OTP
 const resendOTP = async (req, res) => {
     try {
@@ -167,5 +201,6 @@ module.exports = {
     loginUser,
     verifyOTP,
     resendOTP,
-    refreshToken
+    refreshToken,
+    forgotPassword
 };

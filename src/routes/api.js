@@ -4,7 +4,8 @@ const {
     loginUser,
     verifyOTP,
     resendOTP,
-    refreshToken
+    refreshToken,
+    forgotPassword
 } = require('../controllers/authController.js');
 
 const {
@@ -19,7 +20,10 @@ const {
     validateVerifyOtp,
     validateResendOtp,
     validateRefreshToken,
+    validateChangePassword,
+    validateForgotPassword,
 } = require('../middleware/validation.js');
+const { changePassword } = require('../services/auth/authService.js');
 
 let router = express.Router();
 
@@ -34,6 +38,7 @@ let initApiRoutes = (app) => {
     router.post('/verify-otp', validateVerifyOtp, verifyOTP);
     router.post('/resend-otp', validateResendOtp, resendOTP);
     router.post('/refresh-token', validateRefreshToken, refreshToken);
+    router.post('/forgot-password', validateForgotPassword, forgotPassword);
 
     // Protected routes (authentication required)
     router.use(auth); // Apply auth middleware to all routes below

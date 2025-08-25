@@ -1,4 +1,4 @@
-const { registerUserDto, loginUserDto, verifyOtpDto, resendOtpDto, refreshTokenDto, updateProfileDto, changePasswordDto, deleteAccountDto } = require('../dto/userDto.js');
+const { registerUserDto, loginUserDto, verifyOtpDto, resendOtpDto, refreshTokenDto, updateProfileDto, changePasswordDto, deleteAccountDto, forgotPasswordDto } = require('../dto/userDto.js');
 
 // Validation middleware factory
 const createValidationMiddleware = (dto) => {
@@ -101,5 +101,6 @@ module.exports = {
     validateRefreshToken: createValidationMiddleware(refreshTokenDto),
     validateUpdateProfile: createValidationMiddleware(updateProfileDto),
     validateChangePassword: createValidationMiddleware(changePasswordDto),
-    validateDeleteAccount: createValidationMiddleware(deleteAccountDto)
+    validateDeleteAccount: createValidationMiddleware(deleteAccountDto),
+    validateForgotPassword: createValidationMiddleware(forgotPasswordDto)
 };

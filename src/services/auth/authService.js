@@ -186,6 +186,33 @@ class AuthService {
             };
         }
     }
+
+    // Change user password
+    static async changePassword(email, newPassword) {
+        try {
+            const user = await User.findOne({ email: email });
+            if (!user) {
+                return {
+                    success: false,
+                    message: 'User not found'
+                };
+            }
+            const saltRounds = 10;
+            const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+            user.password = hashedPassword;
+            await user.save();
+            return {
+                success: true,
+                message: 'Password changed successfully'
+            };
+        } catch (error) {
+            console.error('Error changing password:', error);
+            return {
+                success: false,
+                message: 'Error changing password'
+            };
+        }
+    }
 }
 
 module.exports = AuthService;

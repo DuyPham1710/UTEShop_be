@@ -164,6 +164,18 @@ const changePasswordDto = {
     }
 };
 
+// DTP for forgot password
+const forgotPasswordDto = {
+        newPassword: {
+        type: 'string',
+        required: true,
+        minLength: 6,
+        maxLength: 128,
+        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+        message: 'New password must be at least 6 characters with uppercase, lowercase, number, and special character'
+    }
+};
+
 // DTO for delete account
 const deleteAccountDto = {
     password: {
@@ -181,5 +193,6 @@ module.exports = {
     refreshTokenDto,
     updateProfileDto,
     changePasswordDto,
-    deleteAccountDto
+    deleteAccountDto,
+    forgotPasswordDto
 };
