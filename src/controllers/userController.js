@@ -1,6 +1,6 @@
-const UserService = require('../services/user/userService.js');
+import UserService from '../services/user/userService.js';
 
-const getUserProfile = async (req, res) => {
+export const getUserProfile = async (req, res) => {
     try {
         const userId = req.user.userId;
         const result = await UserService.getUserProfile(userId);
@@ -18,7 +18,3 @@ const getUserProfile = async (req, res) => {
         });
     }
 };
-
-module.exports = {
-    getUserProfile
-};      

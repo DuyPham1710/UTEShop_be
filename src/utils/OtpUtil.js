@@ -1,7 +1,7 @@
 class OtpUtil {
-    static generateOtp(length = 6) {
-        return Math.floor(100000 + Math.random() * 900000).toString();
-    }
+  static generateOtp(length = 6) {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  }
 }
 
-module.exports = OtpUtil;
+export default OtpUtil;

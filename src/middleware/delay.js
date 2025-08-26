@@ -3,4 +3,4 @@ const delay = (req, res, next) => {
     setTimeout(next, 100);
 };
 
-module.exports = delay;
+export default delay;

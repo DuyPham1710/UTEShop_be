@@ -1,4 +1,5 @@
-const registerUserDto = {
+// DTO for register user
+export const registerUserDto = {
     fullName: {
         type: 'string',
         required: true,
@@ -59,22 +60,14 @@ const registerUserDto = {
     }
 };
 
-// DTO for user login
-const loginUserDto = {
-    username: {
-        type: 'string',
-        required: true,
-        message: 'Username or email is required'
-    },
-    password: {
-        type: 'string',
-        required: true,
-        message: 'Password is required'
-    }
+// DTO for login
+export const loginUserDto = {
+    username: { type: 'string', required: true, message: 'Username or email is required' },
+    password: { type: 'string', required: true, message: 'Password is required' }
 };
 
 // DTO for OTP verification
-const verifyOtpDto = {
+export const verifyOtpDto = {
     email: {
         type: 'string',
         required: true,
@@ -90,7 +83,7 @@ const verifyOtpDto = {
 };
 
 // DTO for resend OTP
-const resendOtpDto = {
+export const resendOtpDto = {
     email: {
         type: 'string',
         required: true,
@@ -100,16 +93,12 @@ const resendOtpDto = {
 };
 
 // DTO for refresh token
-const refreshTokenDto = {
-    refreshToken: {
-        type: 'string',
-        required: true,
-        message: 'Refresh token is required'
-    }
+export const refreshTokenDto = {
+    refreshToken: { type: 'string', required: true, message: 'Refresh token is required' }
 };
 
 // DTO for profile update
-const updateProfileDto = {
+export const updateProfileDto = {
     fullName: {
         type: 'string',
         required: false,
@@ -124,10 +113,7 @@ const updateProfileDto = {
         pattern: /^[0-9+\-\s()]+$/,
         message: 'Phone number format is invalid'
     },
-    gender: {
-        type: 'boolean',
-        required: false
-    },
+    gender: { type: 'boolean', required: false },
     dateOfBirth: {
         type: 'date',
         required: false,
@@ -148,12 +134,8 @@ const updateProfileDto = {
 };
 
 // DTO for change password
-const changePasswordDto = {
-    currentPassword: {
-        type: 'string',
-        required: true,
-        message: 'Current password is required'
-    },
+export const changePasswordDto = {
+    currentPassword: { type: 'string', required: true, message: 'Current password is required' },
     newPassword: {
         type: 'string',
         required: true,
@@ -164,9 +146,9 @@ const changePasswordDto = {
     }
 };
 
-// DTP for forgot password
-const forgotPasswordDto = {
-        newPassword: {
+// DTO for forgot password
+export const forgotPasswordDto = {
+    newPassword: {
         type: 'string',
         required: true,
         minLength: 6,
@@ -177,22 +159,6 @@ const forgotPasswordDto = {
 };
 
 // DTO for delete account
-const deleteAccountDto = {
-    password: {
-        type: 'string',
-        required: true,
-        message: 'Password is required to confirm account deletion'
-    }
-};
-
-module.exports = {
-    registerUserDto,
-    loginUserDto,
-    verifyOtpDto,
-    resendOtpDto,
-    refreshTokenDto,
-    updateProfileDto,
-    changePasswordDto,
-    deleteAccountDto,
-    forgotPasswordDto
+export const deleteAccountDto = {
+    password: { type: 'string', required: true, message: 'Password is required to confirm account deletion' }
 };

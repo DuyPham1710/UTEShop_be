@@ -1,5 +1,7 @@
-const AuthService = require('../services/auth/authService.js');
-const OTPService = require('../services/otp/otpService.js');
+
+
+import AuthService from '../services/auth/authService.js';
+import OTPService from '../services/otp/otpService.js';
 
 const registerUser = async (req, res) => {
     try {
@@ -196,11 +198,12 @@ const refreshToken = async (req, res) => {
 };
 
 
-module.exports = {
-    registerUser,
-    loginUser,
-    verifyOTP,
-    resendOTP,
-    refreshToken,
-    forgotPassword
+export {
+  registerUser,
+  loginUser,
+  verifyOTP,
+  resendOTP,
+  refreshToken,
+  forgotPassword
 };
+

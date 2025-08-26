@@ -1,26 +1,26 @@
-const express = require("express");
-const configViewEngine = require("./config/viewEngine.js");
-const bodyParser = require("body-parser");
-const apiRoutes = require("./routes/api.js");
-const connectDB = require("./config/database.js");
-const cors = require('cors');
-require('dotenv').config();
+import express from "express";
+import configViewEngine from "./config/viewEngine.js";
+import bodyParser from "body-parser";
+import initApiRoutes from "./routes/api.js";
+import connectDB from "./config/database.js";
+import cors from "cors";
+import dotenv from "dotenv";
 
-let app = express();
+dotenv.config();
+
+const app = express();
 
 // config app
-
-// Allow all domains to call API (CORS)
 app.use(cors());
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 configViewEngine(app);
-apiRoutes(app);
+initApiRoutes(app);
 
 connectDB(); // MongoDB connection
 
-let port = process.env.PORT || 6969;
+const port = process.env.PORT || 6969;
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+  console.log(`✅ Server is running on port ${port}`);
 });
