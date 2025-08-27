@@ -10,7 +10,7 @@
 
 ### 1. Test đăng ký tài khoản
 
-**Endpoint:** `POST http://localhost:3000/v1/api/register`
+**Endpoint:** `POST http://localhost:6969/v1/api/register`
 
 **Body:**
 ```json
@@ -47,7 +47,7 @@
 
 ### 2. Test xác thực OTP
 
-**Endpoint:** `POST http://localhost:3000/v1/api/verify-otp`
+**Endpoint:** `POST http://localhost:6969/v1/api/verify-otp`
 
 **Body:**
 ```json
@@ -67,7 +67,7 @@
 
 ### 3. Test đăng nhập
 
-**Endpoint:** `POST http://localhost:3000/v1/api/login`
+**Endpoint:** `POST http://localhost:6969/v1/api/login`
 
 **Body:**
 ```json
@@ -104,7 +104,7 @@
 
 ### 4. Test lấy thông tin profile (Protected Route)
 
-**Endpoint:** `GET http://localhost:3000/v1/api/profile`
+**Endpoint:** `GET http://localhost:6969/v1/api/profile`
 
 **Headers:**
 ```
@@ -131,7 +131,7 @@ Authorization: Bearer <access_token_from_login>
 
 ### 5. Test refresh token
 
-**Endpoint:** `POST http://localhost:3000/v1/api/refresh-token`
+**Endpoint:** `POST http://localhost:6969/v1/api/refresh-token`
 
 **Body:**
 ```json
@@ -153,7 +153,7 @@ Authorization: Bearer <access_token_from_login>
 
 ### 6. Test gửi lại OTP
 
-**Endpoint:** `POST http://localhost:3000/v1/api/resend-otp`
+**Endpoint:** `POST http://localhost:6969/v1/api/resend-otp`
 
 **Body:**
 ```json
@@ -175,7 +175,7 @@ Authorization: Bearer <access_token_from_login>
 1. **Tạo Collection mới** tên "UTEShop API"
 2. **Import các request** từ các endpoint trên
 3. **Set Environment Variables:**
-   - `base_url`: `http://localhost:3000/v1/api`
+   - `base_url`: `http://localhost:6969/v1/api`
    - `access_token`: Lưu token sau khi login
    - `refresh_token`: Lưu refresh token sau khi login
    - `user_id`: Lưu user ID sau khi register
@@ -192,7 +192,7 @@ Authorization: Bearer <access_token_from_login>
 
 ### Register
 ```bash
-curl -X POST http://localhost:3000/v1/api/register \
+curl -X POST http://localhost:6969/v1/api/register \
   -H "Content-Type: application/json" \
   -d '{
     "fullName": "Nguyễn Văn A",
@@ -208,7 +208,7 @@ curl -X POST http://localhost:3000/v1/api/register \
 
 ### Login
 ```bash
-curl -X POST http://localhost:3000/v1/api/login \
+curl -X POST http://localhost:6969/v1/api/login \
   -H "Content-Type: application/json" \
   -d '{
     "username": "username",
@@ -218,7 +218,7 @@ curl -X POST http://localhost:3000/v1/api/login \
 
 ### Profile (Protected)
 ```bash
-curl -X GET http://localhost:3000/v1/api/profile \
+curl -X GET http://localhost:6969/v1/api/profile \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
