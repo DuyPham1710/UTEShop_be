@@ -101,7 +101,7 @@ POST /v1/api/resend-otp
 Body:
 ```json
 {
-  "userId": "user_id_here"
+  "email": "user_id_here"
 }
 ```
 
