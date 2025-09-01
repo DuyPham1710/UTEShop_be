@@ -5,6 +5,14 @@
 1. Đảm bảo MongoDB đang chạy
 2. Tạo file `.env` với các biến môi trường cần thiết
 3. Chạy `npm run dev` để khởi động server
+4. Chạy tạo database
+
+Sửa trong file src/Database/riviews  userid theo id của người dùng.
+mongoimport --db uteshop --collection categories --file src/Database/categories.json --jsonArray
+mongoimport --db uteshop --collection products --file src/Database/products.json --jsonArray
+mongoimport --db uteshop --collection productimages --file src/Database/productImages.json --jsonArray
+mongoimport --db uteshop --collection reviews --file src/Database/reviews.json --jsonArray
+
 
 ## Test các API
 

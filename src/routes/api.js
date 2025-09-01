@@ -9,8 +9,14 @@ import {
   refreshToken,
   forgotPassword,
 } from "../controllers/authController.js";
-
+//user
 import { getUserProfile } from "../controllers/userController.js";
+
+//product
+import { getProductDetail, getSimilarProducts, getTopViewedProducts, getTopDiscountProducts } from "../controllers/productController.js";
+
+//review
+import { getReviewsByProduct } from "../controllers/reviewController.js";
 
 // Middlewares
 import auth from "../middleware/auth.js";
@@ -44,6 +50,24 @@ const initApiRoutes = (app) => {
   router.post("/refresh-token", validateRefreshToken, refreshToken);
   router.post("/forgot-password", validateForgotPassword, forgotPassword);
 
+
+  // Lấy 8 sản phẩm xem nhiều nhất
+  router.get("/products/top-viewed", getTopViewedProducts);
+
+  // API lấy 04 sản phẩm khuyến mãi cao nhất
+  router.get("/products/top-discount", getTopDiscountProducts);
+
+  //load review
+  router.get("/products/:productId/reviews", getReviewsByProduct);
+  
+  //get product detail
+  router.get("/products/:id", getProductDetail);
+
+  // API lấy sản phẩm tương tự
+  router.get("/products/:id/similar", getSimilarProducts);
+
+  
+
   // Protected routes (authentication required)
   router.use(auth); // Apply auth middleware to all routes below
   router.use(delay); // Apply delay middleware
@@ -51,6 +75,7 @@ const initApiRoutes = (app) => {
   // User management routes
   router.get("/profile", getUserProfile);
 
+  
   return app.use("/v1/api/", router);
 };
 

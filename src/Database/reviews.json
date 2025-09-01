@@ -1,0 +1,92 @@
+[
+  {
+    "product": { "$oid": "66af270df88554d0fd490301" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 5,
+    "comment": "Sản phẩm chất lượng, giao hàng nhanh!"
+  },
+  {
+    "product": { "$oid": "66af270df88554d0fd490302" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 4,
+    "comment": "Balo rộng rãi, đi chơi hợp lý."
+  },
+  {
+    "product": { "$oid": "66af270df88554d0fd490303" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 5,
+    "comment": "Con mình rất thích, balo bền và đẹp."
+  },
+  {
+    "product": { "$oid": "66af270df88554d0fd490304" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 5,
+    "comment": "Đẹp"
+  },
+  {
+    "product": { "$oid": "66af270df88554d0fd490305" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 4,
+    "comment": "Đẹp"
+  },
+  {
+    "product": { "$oid": "66af270df88554d0fd490306" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 5,
+    "comment": "Đẹp"
+  },
+  {
+    "product": { "$oid": "66af270df88554d0fd490307" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 5,
+    "comment": "Đẹp"
+  },
+  {
+    "product": { "$oid": "66af270df88554d0fd490308" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 4,
+    "comment": "Đẹp"
+  },
+  {
+    "product": { "$oid": "66af270df88554d0fd490309" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 5,
+    "comment": "Đẹp"
+  },
+  {
+    "product": { "$oid": "66af270df88554d0fd490310" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 5,
+    "comment": "Đẹp"
+  },
+  {
+    "product": { "$oid": "66af270df88554d0fd490311" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 4,
+    "comment": "Đẹp"
+  },
+  {
+    "product": { "$oid": "66af270df88554d0fd490312" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 5,
+    "comment": "Đẹp"
+  },
+  {
+    "product": { "$oid": "66af270df88554d0fd490313" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 5,
+    "comment": "Vừa vặn"
+  },
+  {
+    "product": { "$oid": "66af270df88554d0fd490314" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 4,
+    "comment": "Đẹp"
+  },
+  {
+    "product": { "$oid": "66af270df88554d0fd490315" },
+    "user": { "$oid": "68af270df88554d0fd49017c" },
+    "rating": 5,
+    "comment": "Đẹp"
+  }
+]
