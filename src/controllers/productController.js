@@ -197,4 +197,91 @@ export const getTopDiscountProducts = async (req, res) => {
   }
 };
 
+export const getNewestProducts = async (req, res) => {
+  try {
+    const products = await Product.aggregate([
+      { $match: { status: "available" } },
+      { $sort: { createdAt: -1 } },
+      { $limit: 8 },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "category"
+        }
+      },
+      { $unwind: { path: "$category", preserveNullAndEmptyArrays: true } },
+      {
+        $lookup: {
+          from: "productimages",
+          localField: "_id",
+          foreignField: "product",
+          as: "images"
+        }
+      },
+      {
+        $project: {
+          name: 1,
+          price: 1,
+          discount: 1,
+          sold: 1,
+          views: 1,
+          createdAt: 1,
+          "category.name": 1,
+          images: 1
+        }
+      }
+    ]);
+
+    res.status(200).json(products);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Lỗi server" });
+  }
+};
+
+export const getBestSellingProducts = async (req, res) => {
+  try {
+    const products = await Product.aggregate([
+      { $match: { status: "available" } },
+      { $sort: { sold: -1 } },
+      { $limit: 6 },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "category"
+        }
+      },
+      { $unwind: { path: "$category", preserveNullAndEmptyArrays: true } },
+      {
+        $lookup: {
+          from: "productimages",
+          localField: "_id",
+          foreignField: "product",
+          as: "images"
+        }
+      },
+      {
+        $project: {
+          name: 1,
+          price: 1,
+          discount: 1,
+          sold: 1,
+          views: 1,
+          createdAt: 1,
+          "category.name": 1,
+          images: 1
+        }
+      }
+    ]);
+
+    res.status(200).json(products);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Lỗi server" });
+  }
+};
 

@@ -10,10 +10,10 @@ import {
   forgotPassword,
 } from "../controllers/authController.js";
 //user
-import { getUserProfile } from "../controllers/userController.js";
+import { getUserProfile, updateUserProfile } from "../controllers/userController.js";
 
 //product
-import { getProductDetail, getSimilarProducts, getTopViewedProducts, getTopDiscountProducts } from "../controllers/productController.js";
+import { getProductDetail, getSimilarProducts, getTopViewedProducts, getTopDiscountProducts, getNewestProducts, getBestSellingProducts } from "../controllers/productController.js";
 
 //review
 import { getReviewsByProduct } from "../controllers/reviewController.js";
@@ -34,6 +34,7 @@ import {
 
 // Services
 import { changePassword } from "../services/auth/authService.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -66,6 +67,10 @@ const initApiRoutes = (app) => {
   // API lấy sản phẩm tương tự
   router.get("/products/:id/similar", getSimilarProducts);
 
+  router.get("/newest", getNewestProducts);
+
+  router.get("/best-sellers", getBestSellingProducts);
+
   
 
   // Protected routes (authentication required)
@@ -74,6 +79,8 @@ const initApiRoutes = (app) => {
 
   // User management routes
   router.get("/profile", getUserProfile);
+
+  router.put("/update-profile", authMiddleware, updateUserProfile);
 
   
   return app.use("/v1/api/", router);
