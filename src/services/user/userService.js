@@ -49,11 +49,12 @@ class UserService {
                 };
             }
 
-            return {
-                success: true,
-                message: 'Profile updated successfully',
-                data: updatedUser
-            };
+            // return {
+            //     success: true,
+            //     message: 'Profile updated successfully',
+            //     data: updatedUser
+            // };
+            return updatedUser;
         } catch (error) {
             console.error('Error updating user profile:', error);
             return {
