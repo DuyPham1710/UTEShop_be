@@ -35,6 +35,7 @@ import {
 // Services
 import { changePassword } from "../services/auth/authService.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
+import { checkPayment, createQr } from "../controllers/paymentController.js";
 
 const router = express.Router();
 
@@ -71,7 +72,8 @@ const initApiRoutes = (app) => {
 
   router.get("/best-sellers", getBestSellingProducts);
 
-  
+  router.get("/payment/vnpay_return", checkPayment)
+
 
   // Protected routes (authentication required)
   router.use(auth); // Apply auth middleware to all routes below
@@ -82,6 +84,7 @@ const initApiRoutes = (app) => {
 
   router.put("/update-profile", authMiddleware, updateUserProfile);
 
+  router.post("/payment/create-qr", createQr)
   
   return app.use("/v1/api/", router);
 };
