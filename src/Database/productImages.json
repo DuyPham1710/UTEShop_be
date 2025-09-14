@@ -1,46 +1,492 @@
 [
-  { "product": { "$oid": "66af270df88554d0fd490301" }, "url": "https://gubag.vn/wp-content/uploads/2021/07/Balo-Laptop-nho-gon-13-inch-%E2%80%93-14-inch-%E2%80%93-156-inch-GB-BL01-GN.webp", "alt": "Balo laptop góc trước" },
-  { "product": { "$oid": "66af270df88554d0fd490301" }, "url": "https://yeepvn.sgp1.digitaloceanspaces.com/2023/03/5e5810c08b119e845934bc8348a71aef.jpg", "alt": "Balo laptop góc sau" },
-
-  { "product": { "$oid": "66af270df88554d0fd490302" }, "url": "https://hidola.com/upload/sanpham/31891665.jpg", "alt": "Balo du lịch góc trước" },
-  { "product": { "$oid": "66af270df88554d0fd490302" }, "url": "https://hidola.com/upload/sanpham/98012897.jpg", "alt": "Balo du lịch góc bên" },
-
-  { "product": { "$oid": "66af270df88554d0fd490303" }, "url": "https://kingstyles.vn/vnt_upload/product/06_2023/balo-dong-phuc-truong-dai-hoc-su-pham-ki-thuat.jpg", "alt": "Balo học sinh góc trước" },
-  { "product": { "$oid": "66af270df88554d0fd490303" }, "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFMrXji73qdCavvqgbE2r6A9ZZc2On4VxAHEtwaO9Jy5jRg05ILZ--SENRRTF2InikSpQ&usqp=CAU", "alt": "Balo học sinh chi tiết quai đeo" },
-
-  { "product": { "$oid": "66af270df88554d0fd490304" }, "url": "https://dongphuchaianh.com/wp-content/uploads/2025/03/o-the-duc-dong-phuc-hcmute.jpg", "alt": "" },
-  { "product": { "$oid": "66af270df88554d0fd490304" }, "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmgNRM0yfwk8WLxulVveDkgC3I_l83WLqE7A&s", "alt": "" },
-
-  { "product": { "$oid": "66af270df88554d0fd490305" }, "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF51xGbWaZP3P50y0iEmsyiDkK9rvChUmtPA&s", "alt": "" },
-  
-
-  { "product": { "$oid": "66af270df88554d0fd490306" }, "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3cgc-AnBhFLzvW6Cea6XTWJwx35XJjWdQGg&s", "alt": "" },
-  { "product": { "$oid": "66af270df88554d0fd490306" }, "url": "https://hidosport.vn/wp-content/uploads/2023/08/ao-doan-thanh-nien-tay-dai.jpg", "alt": "" },
-
-  { "product": { "$oid": "66af270df88554d0fd490307" }, "url": "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lmj6o08f4ue795", "alt": "" },
-  { "product": { "$oid": "66af270df88554d0fd490307" }, "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcFn6CqAFyUCbhpqd01BQjJTVI2OLc-qm96RGdUR-KR5V6Ru2UrpTXt22WAt3AUugS9Y8&usqp=CAU", "alt": "" },
-
-  { "product": { "$oid": "66af270df88554d0fd490308" }, "url": "https://theblues.com.vn/wp-content/uploads/2023/04/z4304566397022_1a978ce426cf5cf78d74fc0cd3b10d4a.jpg", "alt": "" },
-  { "product": { "$oid": "66af270df88554d0fd490308" }, "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9gbFXQW1NBM0LyAcMcYCij4lVCXR_-Xee5SW2ikZc6p4Squf0wfnqvFYTGfVyUmfSkRM&usqp=CAU", "alt": "" },
-
-  { "product": { "$oid": "66af270df88554d0fd490309" }, "url": "https://product.hstatic.net/1000304105/product/i-jeans-nu-suong-vay-xch3-jeans-quan_-dai-nu-jeans-xcd2-tq124j8529__5__21c3b3b6b448492bb3667b9b4ee773ea.jpg", "alt": "" },
-  { "product": { "$oid": "66af270df88554d0fd490309" }, "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTEhEf1iac38Xm3j8lnOkcJAXK7b-T_bYkJHGjTAP0B3ap-v2blwDVVjHxRjv2LJGtt4U&usqp=CAU", "alt": "" },
-
-  { "product": { "$oid": "66af270df88554d0fd490310" }, "url": "https://www.chapi.vn/img/product/2020/2/4/mu-luoi-trai-laurenclay-7-500x500.jpg", "alt": "" },
-  { "product": { "$oid": "66af270df88554d0fd490310" }, "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9lx2rC5nX-bWMOHGV7PI4vSfZIpsrQCxaLvFBWx7dKa-iDgtcl60tjsBDVlYmUbGtV9g&usqp=CAU", "alt": "" },
-
-  { "product": { "$oid": "66af270df88554d0fd490311" }, "url": "https://product.hstatic.net/200000411579/product/a79438a6084016ada383c4fb1a64f7_master_2f95e25c634c4242bb0600f0febf93a7_2f8a650b8599468eb8a07917ab0ed26e_master.jpg", "alt": "" },
-  { "product": { "$oid": "66af270df88554d0fd490311" }, "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ-BO7YKi5XWc3S_V7GvSpw6gE7KBfomvQOQ&s", "alt": "" },
-
-  { "product": { "$oid": "66af270df88554d0fd490312" }, "url": "https://product.hstatic.net/1000111569/product/thiet_ke_chua_co_ten_fa17cbec42c747cc96a899e8042860f0_1024x1024.jpg", "alt": "" },
-  { "product": { "$oid": "66af270df88554d0fd490312" }, "url": "https://sakurafashion.vn/upload/sanpham/large/5237-non-len-thu-dong-dinh-qua-bong-6.jpg", "alt": "" },
-
-  { "product": { "$oid": "66af270df88554d0fd490313" }, "url": "https://cdn.shopvnb.com/uploads/images/bai_viet/giay-asia-cau-long-1-1747603798.jpg", "alt": "" },
-  { "product": { "$oid": "66af270df88554d0fd490313" }, "url": "https://vn-live-01.slatic.net/p/12b1e213d985c936aac4e53937ed00a7.jpg", "alt": "" },
-
-  { "product": { "$oid": "66af270df88554d0fd490314" }, "url": "https://cdn.vortexs.io/api/images/57594672-cf3f-4d37-8678-4cd0ceefb19d/1920/w/giay-mlb-chunky-liner-basic-la-white-navy-3asxclb3n-07nyd.jpeg", "alt": "" },
-  { "product": { "$oid": "66af270df88554d0fd490314" }, "url": "https://product.hstatic.net/200000642007/product/07nyd_3asxclb3n_3_6ce076a85c314b72bfc1028d16299762_a833fc0f00044cc7a633a142df596789_master.jpg", "alt": "" },
-
-  { "product": { "$oid": "66af270df88554d0fd490315" }, "url": "https://www.chapi.vn/img/product/2021/8/21/giay-da-nam-buoc-day-hla-11-new.jpg", "alt": "" },
-  { "product": { "$oid": "66af270df88554d0fd490315" }, "url": "https://lh3.googleusercontent.com/proxy/rm5qXa5Sv0Y3r31rs5Za9tBkmBWOLPTQWMOhgFHRbJV-ANyvpXz7meO_Ez76C8M7O251ioBzv-mcMi7K4qFY_dzavFOMttOEnMsjad28NA4X3CGP0-FC6jmqCikZsscDtgrFsHWEgehkIv9jsx56YTY", "alt": "" }
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490401"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490301"
+    },
+    "url": "https://gubag.vn/wp-content/uploads/2021/07/Balo-Laptop-nho-gon-13-inch-%E2%80%93-14-inch-%E2%80%93-156-inch-GB-BL01-GN.webp",
+    "alt": "Balo laptop góc trước"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490402"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490301"
+    },
+    "url": "https://yeepvn.sgp1.digitaloceanspaces.com/2023/03/5e5810c08b119e845934bc8348a71aef.jpg",
+    "alt": "Balo laptop góc sau"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490403"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490302"
+    },
+    "url": "https://hidola.com/upload/sanpham/31891665.jpg",
+    "alt": "Balo du lịch góc trước"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490404"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490302"
+    },
+    "url": "https://hidola.com/upload/sanpham/98012897.jpg",
+    "alt": "Balo du lịch góc bên"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490405"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490303"
+    },
+    "url": "https://kingstyles.vn/vnt_upload/product/06_2023/balo-dong-phuc-truong-dai-hoc-su-pham-ki-thuat.jpg",
+    "alt": "Balo học sinh góc trước"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490406"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490303"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFMrXji73qdCavvqgbE2r6A9ZZc2On4VxAHEtwaO9Jy5jRg05ILZ--SENRRTF2InikSpQ&usqp=CAU",
+    "alt": "Balo học sinh chi tiết quai đeo"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490407"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490304"
+    },
+    "url": "https://dongphuchaianh.com/wp-content/uploads/2025/03/o-the-duc-dong-phuc-hcmute.jpg",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490408"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490304"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmgNRM0yfwk8WLxulVveDkgC3I_l83WLqE7A&s",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490409"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490305"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF51xGbWaZP3P50y0iEmsyiDkK9rvChUmtPA&s",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490410"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490306"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3cgc-AnBhFLzvW6Cea6XTWJwx35XJjWdQGg&s",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490411"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490306"
+    },
+    "url": "https://hidosport.vn/wp-content/uploads/2023/08/ao-doan-thanh-nien-tay-dai.jpg",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490412"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490307"
+    },
+    "url": "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lmj6o08f4ue795",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490413"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490307"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcFn6CqAFyUCbhpqd01BQjJTVI2OLc-qm96RGdUR-KR5V6Ru2UrpTXt22WAt3AUugS9Y8&usqp=CAU",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490414"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490308"
+    },
+    "url": "https://theblues.com.vn/wp-content/uploads/2023/04/z4304566397022_1a978ce426cf5cf78d74fc0cd3b10d4a.jpg",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490415"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490308"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9gbFXQW1NBM0LyAcMcYCij4lVCXR_-Xee5SW2ikZc6p4Squf0wfnqvFYTGfVyUmfSkRM&usqp=CAU",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490416"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490309"
+    },
+    "url": "https://product.hstatic.net/1000304105/product/i-jeans-nu-suong-vay-xch3-jeans-quan_-dai-nu-jeans-xcd2-tq124j8529__5__21c3b3b6b448492bb3667b9b4ee773ea.jpg",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490417"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490309"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTEhEf1iac38Xm3j8lnOkcJAXK7b-T_bYkJHGjTAP0B3ap-v2blwDVVjHxRjv2LJGtt4U&usqp=CAU",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490418"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490310"
+    },
+    "url": "https://www.chapi.vn/img/product/2020/2/4/mu-luoi-trai-laurenclay-7-500x500.jpg",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490419"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490310"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9lx2rC5nX-bWMOHGV7PI4vSfZIpsrQCxaLvFBWx7dKa-iDgtcl60tjsBDVlYmUbGtV9g&usqp=CAU",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490420"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490311"
+    },
+    "url": "https://product.hstatic.net/200000411579/product/a79438a6084016ada383c4fb1a64f7_master_2f95e25c634c4242bb0600f0febf93a7_2f8a650b8599468eb8a07917ab0ed26e_master.jpg",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490421"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490311"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ-BO7YKi5XWc3S_V7GvSpw6gE7KBfomvQOQ&s",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490422"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490312"
+    },
+    "url": "https://product.hstatic.net/1000111569/product/thiet_ke_chua_co_ten_fa17cbec42c747cc96a899e8042860f0_1024x1024.jpg",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490423"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490312"
+    },
+    "url": "https://sakurafashion.vn/upload/sanpham/large/5237-non-len-thu-dong-dinh-qua-bong-6.jpg",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490424"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490313"
+    },
+    "url": "https://cdn.shopvnb.com/uploads/images/bai_viet/giay-asia-cau-long-1-1747603798.jpg",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490425"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490313"
+    },
+    "url": "https://vn-live-01.slatic.net/p/12b1e213d985c936aac4e53937ed00a7.jpg",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490426"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490314"
+    },
+    "url": "https://cdn.vortexs.io/api/images/57594672-cf3f-4d37-8678-4cd0ceefb19d/1920/w/giay-mlb-chunky-liner-basic-la-white-navy-3asxclb3n-07nyd.jpeg",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490427"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490314"
+    },
+    "url": "https://product.hstatic.net/200000642007/product/07nyd_3asxclb3n_3_6ce076a85c314b72bfc1028d16299762_a833fc0f00044cc7a633a142df596789_master.jpg",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490428"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490315"
+    },
+    "url": "https://www.chapi.vn/img/product/2021/8/21/giay-da-nam-buoc-day-hla-11-new.jpg",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490429"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490315"
+    },
+    "url": "https://lh3.googleusercontent.com/proxy/rm5qXa5Sv0Y3r31rs5Za9tBkmBWOLPTQWMOhgFHRbJV-ANyvpXz7meO_Ez76C8M7O251ioBzv-mcMi7K4qFY_dzavFOMttOEnMsjad28NA4X3CGP0-FC6jmqCikZsscDtgrFsHWEgehkIv9jsx56YTY",
+    "alt": ""
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490430"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490316"
+    },
+    "url": "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lmj6o08f4ue795",
+    "alt": "Áo thun UTE Basic - Mặt trước"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490431"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490316"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcFn6CqAFyUCbhpqd01BQjJTVI2OLc-qm96RGdUR-KR5V6Ru2UrpTXt22WAt3AUugS9Y8&usqp=CAU",
+    "alt": "Áo thun UTE Basic - Mặt sau"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490432"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490317"
+    },
+    "url": "https://product.hstatic.net/200000411579/product/a79438a6084016ada383c4fb1a64f7_master_2f95e25c634c4242bb0600f0febf93a7_2f8a650b8599468eb8a07917ab0ed26e_master.jpg",
+    "alt": "Túi đeo chéo UTE - Góc trước"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490433"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490317"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ-BO7YKi5XWc3S_V7GvSpw6gE7KBfomvQOQ&s",
+    "alt": "Túi đeo chéo UTE - Chi tiết"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490434"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490318"
+    },
+    "url": "https://www.chapi.vn/img/product/2020/2/4/mu-luoi-trai-laurenclay-7-500x500.jpg",
+    "alt": "Ví da UTE - Mở"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490435"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490318"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9lx2rC5nX-bWMOHGV7PI4vSfZIpsrQCxaLvFBWx7dKa-iDgtcl60tjsBDVlYmUbGtV9g&usqp=CAU",
+    "alt": "Ví da UTE - Đóng"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490436"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490319"
+    },
+    "url": "https://cdn.shopvnb.com/uploads/images/bai_viet/giay-asia-cau-long-1-1747603798.jpg",
+    "alt": "Đồng hồ đeo tay UTE - Mặt trước"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490437"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490319"
+    },
+    "url": "https://vn-live-01.slatic.net/p/12b1e213d985c936aac4e53937ed00a7.jpg",
+    "alt": "Đồng hồ đeo tay UTE - Mặt bên"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490438"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490320"
+    },
+    "url": "https://cdn.vortexs.io/api/images/57594672-cf3f-4d37-8678-4cd0ceefb19d/1920/w/giay-mlb-chunky-liner-basic-la-white-navy-3asxclb3n-07nyd.jpeg",
+    "alt": "Kính mát UTE - Mặt trước"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490439"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490320"
+    },
+    "url": "https://product.hstatic.net/200000642007/product/07nyd_3asxclb3n_3_6ce076a85c314b72bfc1028d16299762_a833fc0f00044cc7a633a142df596789_master.jpg",
+    "alt": "Kính mát UTE - Mặt bên"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490440"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490321"
+    },
+    "url": "https://www.chapi.vn/img/product/2021/8/21/giay-da-nam-buoc-day-hla-11-new.jpg",
+    "alt": "Bút ký UTE - Mở"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490441"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490321"
+    },
+    "url": "https://lh3.googleusercontent.com/proxy/rm5qXa5Sv0Y3r31rs5Za9tBkmBWOLPTQWMOhgFHRbJV-ANyvpXz7meO_Ez76C8M7O251ioBzv-mcMi7K4qFY_dzavFOMttOEnMsjad28NA4X3CGP0-FC6jmqCikZsscDtgrFsHWEgehkIv9jsx56YTY",
+    "alt": "Bút ký UTE - Đóng"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490442"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490322"
+    },
+    "url": "https://product.hstatic.net/1000111569/product/thiet_ke_chua_co_ten_fa17cbec42c747cc96a899e8042860f0_1024x1024.jpg",
+    "alt": "Sổ tay UTE - Bìa"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490443"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490322"
+    },
+    "url": "https://sakurafashion.vn/upload/sanpham/large/5237-non-len-thu-dong-dinh-qua-bong-6.jpg",
+    "alt": "Sổ tay UTE - Trang trong"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490444"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490323"
+    },
+    "url": "https://theblues.com.vn/wp-content/uploads/2023/04/z4304566397022_1a978ce426cf5cf78d74fc0cd3b10d4a.jpg",
+    "alt": "Áo khoác UTE - Mặc"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490445"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490323"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9gbFXQW1NBM0LyAcMcYCij4lVCXR_-Xee5SW2ikZc6p4Squf0wfnqvFYTGfVyUmfSkRM&usqp=CAU",
+    "alt": "Áo khoác UTE - Treo"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490446"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490324"
+    },
+    "url": "https://product.hstatic.net/200000411579/product/a79438a6084016ada383c4fb1a64f7_master_2f95e25c634c4242bb0600f0febf93a7_2f8a650b8599468eb8a07917ab0ed26e_master.jpg",
+    "alt": "Quần short UTE - Mặc"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490447"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490324"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ-BO7YKi5XWc3S_V7GvSpw6gE7KBfomvQOQ&s",
+    "alt": "Quần short UTE - Chi tiết"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490448"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490325"
+    },
+    "url": "https://www.chapi.vn/img/product/2020/2/4/mu-luoi-trai-laurenclay-7-500x500.jpg",
+    "alt": "Tất UTE - Đóng gói"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490449"
+    },
+    "product": {
+      "$oid": "66af270df88554d0fd490325"
+    },
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9lx2rC5nX-bWMOHGV7PI4vSfZIpsrQCxaLvFBWx7dKa-iDgtcl60tjsBDVlYmUbGtV9g&usqp=CAU",
+    "alt": "Tất UTE - Màu sắc"
+  }
 ]

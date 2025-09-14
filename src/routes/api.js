@@ -18,6 +18,16 @@ import { getProductDetail, getSimilarProducts, getTopViewedProducts, getTopDisco
 //review
 import { getReviewsByProduct } from "../controllers/reviewController.js";
 
+//cart
+import {
+  getCart,
+  addToCart,
+  updateCartItem,
+  removeFromCart,
+  clearCart,
+  getCartCount
+} from "../controllers/cartController.js";
+
 // Middlewares
 import auth from "../middleware/auth.js";
 import delay from "../middleware/delay.js";
@@ -30,6 +40,8 @@ import {
   validateRefreshToken,
   validateChangePassword,
   validateForgotPassword,
+  validateAddToCart,
+  validateUpdateCartItem,
 } from "../middleware/validation.js";
 
 // Services
@@ -60,7 +72,7 @@ const initApiRoutes = (app) => {
 
   //load review
   router.get("/products/:productId/reviews", getReviewsByProduct);
-  
+
   //get product detail
   router.get("/products/:id", getProductDetail);
 
@@ -71,7 +83,7 @@ const initApiRoutes = (app) => {
 
   router.get("/best-sellers", getBestSellingProducts);
 
-  
+
 
   // Protected routes (authentication required)
   router.use(auth); // Apply auth middleware to all routes below
@@ -82,7 +94,16 @@ const initApiRoutes = (app) => {
 
   router.put("/update-profile", authMiddleware, updateUserProfile);
 
-  
+  // Cart APIs
+  router.get("/cart", getCart);
+  router.get("/cart/count", getCartCount);
+  router.post("/cart/add", validateAddToCart, addToCart);
+  router.put("/cart/update", validateUpdateCartItem, updateCartItem);
+  router.delete("/cart/remove/:productId", removeFromCart);
+  router.delete("/cart/clear", clearCart);
+
+
+
   return app.use("/v1/api/", router);
 };
 

@@ -1,14 +1,43 @@
-import { 
-  registerUserDto, 
-  loginUserDto, 
-  verifyOtpDto, 
-  resendOtpDto, 
-  refreshTokenDto, 
-  updateProfileDto, 
-  changePasswordDto, 
-  deleteAccountDto, 
-  forgotPasswordDto 
+import {
+  registerUserDto,
+  loginUserDto,
+  verifyOtpDto,
+  resendOtpDto,
+  refreshTokenDto,
+  updateProfileDto,
+  changePasswordDto,
+  deleteAccountDto,
+  forgotPasswordDto
 } from '../dto/userDto.js';
+
+// Cart DTOs
+const addToCartDto = {
+  productId: {
+    type: 'string',
+    required: true,
+    message: 'Product ID is required'
+  },
+  quantity: {
+    type: 'number',
+    required: false,
+    validate: (value) => value > 0,
+    message: 'Quantity must be greater than 0'
+  }
+};
+
+const updateCartItemDto = {
+  productId: {
+    type: 'string',
+    required: true,
+    message: 'Product ID is required'
+  },
+  quantity: {
+    type: 'number',
+    required: true,
+    validate: (value) => value > 0,
+    message: 'Quantity must be greater than 0'
+  }
+};
 
 // Factory
 const createValidationMiddleware = (dto) => {
@@ -30,6 +59,11 @@ const createValidationMiddleware = (dto) => {
 
         if (field.type === 'string' && typeof value !== 'string') {
           errors.push(`${fieldName}: must be a string`);
+          return;
+        }
+
+        if (field.type === 'number' && typeof value !== 'number') {
+          errors.push(`${fieldName}: must be a number`);
           return;
         }
 
@@ -99,3 +133,7 @@ export const validateUpdateProfile = createValidationMiddleware(updateProfileDto
 export const validateChangePassword = createValidationMiddleware(changePasswordDto);
 export const validateDeleteAccount = createValidationMiddleware(deleteAccountDto);
 export const validateForgotPassword = createValidationMiddleware(forgotPasswordDto);
+
+// Cart validations
+export const validateAddToCart = createValidationMiddleware(addToCartDto);
+export const validateUpdateCartItem = createValidationMiddleware(updateCartItemDto);

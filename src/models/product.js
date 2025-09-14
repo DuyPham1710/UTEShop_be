@@ -11,7 +11,8 @@ const productSchema = new mongoose.Schema(
     discount: { type: Number, default: 0 },        // % giảm giá
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
     views: { type: Number, default: 0 },           // số lượt xem
-    
+    images: [{ type: mongoose.Schema.Types.ObjectId, ref: "ProductImage" }], // hình ảnh
+
     // Trạng thái sản phẩm
     status: {
       type: String,
