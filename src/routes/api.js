@@ -25,6 +25,8 @@ const {
 } = require('../middleware/validation.js');
 const { changePassword } = require('../services/auth/authService.js');
 
+const { createProduct, getProductById, getProductsPerPage } = require("../controllers/productController");
+
 let router = express.Router();
 
 let initApiRoutes = (app) => {
@@ -40,6 +42,10 @@ let initApiRoutes = (app) => {
     router.post('/refresh-token', validateRefreshToken, refreshToken);
     router.post('/forgot-password', validateForgotPassword, forgotPassword);
 
+
+    router.post("/create-products", createProduct);
+    router.get("/products/:id", getProductById);
+    router.get("/products", getProductsPerPage);
     // Protected routes (authentication required)
     router.use(auth); // Apply auth middleware to all routes below
     router.use(delay); // Apply delay middleware
