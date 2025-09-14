@@ -38,11 +38,20 @@ const getProductByIdService = async (productId) => {
     }
 };
 
-const getProductPerPageService = async (page = 1, limit = 5) => {
+const getProductPerPageService = async (page = 1, limit = 5, category) => {
     try {
         const skip = (page - 1) * limit;
-        const products = await Product.find().skip(skip).limit(limit).lean();
-        const totalProducts = await Product.countDocuments();
+
+        // nếu có category thì filter
+        const filter = category ? { category } : {};
+
+        const products = await Product.find(filter)
+            .skip(skip)
+            .limit(limit)
+            .lean();
+
+        const totalProducts = await Product.countDocuments(filter);
+
         return {
             success: true,
             data: products,
@@ -56,10 +65,22 @@ const getProductPerPageService = async (page = 1, limit = 5) => {
         console.error("Error fetching products:", error);
         return { success: false, message: "Error fetching products" };
     }
+    
+};
+
+const getAllCategoriesService = async () => {
+  try {
+    const categories = await Product.distinct("category");
+    return { success: true, data: categories };
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return { success: false, message: "Error fetching categories" };
+  }
 };
 
 module.exports = {
     createProductService,
     getProductByIdService,
-    getProductPerPageService
+    getProductPerPageService,
+    getAllCategoriesService
 };

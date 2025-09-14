@@ -1,4 +1,6 @@
-const { createProductService, getProductByIdService, getProductPerPageService} = require("../services/product/productService");
+const { createProductService, getProductByIdService, getProductPerPageService
+, getAllCategoriesService
+} = require("../services/product/productService");
 
 class ProductController {
     static async createProduct(req, res) {
@@ -24,7 +26,17 @@ class ProductController {
     static async getProductsPerPage(req, res) {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 5;
-        const result = await getProductPerPageService(page, limit);
+        const category = req.query.category; 
+        const result = await getProductPerPageService(page, limit, category);
+
+        if (result.success) {
+            return res.status(200).json(result);
+        } else {
+            return res.status(500).json(result);
+        }
+    }
+    static async getCategories(req, res) {
+        const result = await getAllCategoriesService();
         if (result.success) {
             return res.status(200).json(result);
         } else {
