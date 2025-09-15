@@ -178,6 +178,19 @@ Authorization: Bearer <access_token_from_login>
 }
 ```
 
+### 7. Test quên mật khẩu
+
+**Endpoint** : `POST http://localhost:3000/v1/api/forgot-password`
+
+**Body:**
+```Json
+{
+    "email": "user@example.com",
+    "otp": "otp",
+    "newPassword": "your_passord_here"
+}
+```
+
 ## Test với Postman
 
 1. **Tạo Collection mới** tên "UTEShop API"
@@ -195,6 +208,7 @@ Authorization: Bearer <access_token_from_login>
    - Profile → Sử dụng access_token
    - Refresh Token → Sử dụng refresh_token
    - Logout → Sử dụng access_token
+   - Quên mật khẩu  
 
 ## Test với cURL
 

@@ -1,222 +1,749 @@
 [
   {
-    "_id": { "$oid": "66af270df88554d0fd490301" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490301"
+    },
     "name": "Balo laptop UTE",
     "quantity": 20,
     "sold": 5,
     "description": "Balo laptop chống sốc",
     "price": 500000,
     "discount": 10,
-    "category": { "$oid": "66af270df88554d0fd490201" },
+    "category": {
+      "$oid": "66af270df88554d0fd490201"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490401"
+      },
+      {
+        "$oid": "66af270df88554d0fd490402"
+      }
+    ],
     "views": 15,
     "status": "available",
-    "createdAt": { "$date": "2025-01-01T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-01T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-01T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-01T00:00:00Z"
+    }
   },
   {
-    "_id": { "$oid": "66af270df88554d0fd490302" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490302"
+    },
     "name": "Balo du lịch UTE",
     "quantity": 10,
     "sold": 3,
     "description": "Balo du lịch chống nước",
     "price": 700000,
     "discount": 20,
-    "category": { "$oid": "66af270df88554d0fd490201" },
+    "category": {
+      "$oid": "66af270df88554d0fd490201"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490403"
+      },
+      {
+        "$oid": "66af270df88554d0fd490404"
+      }
+    ],
     "views": 30,
     "status": "available",
-    "createdAt": { "$date": "2025-01-02T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-02T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-02T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-02T00:00:00Z"
+    }
   },
   {
-    "_id": { "$oid": "66af270df88554d0fd490303" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490303"
+    },
     "name": "Balo học sinh UTE",
     "quantity": 15,
     "sold": 7,
     "description": "Balo học sinh thời trang",
     "price": 300000,
     "discount": 5,
-    "category": { "$oid": "66af270df88554d0fd490201" },
+    "category": {
+      "$oid": "66af270df88554d0fd490201"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490405"
+      },
+      {
+        "$oid": "66af270df88554d0fd490406"
+      }
+    ],
     "views": 25,
     "status": "available",
-    "createdAt": { "$date": "2025-01-03T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-03T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-03T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-03T00:00:00Z"
+    }
   },
-
-
-
   {
-    "_id": { "$oid": "66af270df88554d0fd490304" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490304"
+    },
     "name": "Áo thể chất UTE",
     "quantity": 100,
     "sold": 20,
     "description": "Áo thể chất, mặc siêu đẹp, thoáng khí, phù hợp với mọi đối tượng",
     "price": 120000,
     "discount": 10,
-    "category": { "$oid": "66af270df88554d0fd490202" },
+    "category": {
+      "$oid": "66af270df88554d0fd490202"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490407"
+      },
+      {
+        "$oid": "66af270df88554d0fd490408"
+      }
+    ],
     "views": 45,
     "status": "available",
-    "createdAt": { "$date": "2025-01-01T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-01T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-01T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-01T00:00:00Z"
+    }
   },
   {
-    "_id": { "$oid": "66af270df88554d0fd490305" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490305"
+    },
     "name": "Áo khoa công nghệ thông tin UTE",
     "quantity": 300,
     "sold": 10,
     "description": "Chất liệu: coton thoáng khí, giúp mặc thoải mái",
     "price": 200000,
     "discount": 20,
-    "category": { "$oid": "66af270df88554d0fd490202" },
+    "category": {
+      "$oid": "66af270df88554d0fd490202"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490409"
+      }
+    ],
     "views": 30,
     "status": "available",
-    "createdAt": { "$date": "2025-01-02T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-02T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-02T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-02T00:00:00Z"
+    }
   },
   {
-    "_id": { "$oid": "66af270df88554d0fd490306" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490306"
+    },
     "name": "Áo đoàn viên UTE",
     "quantity": 90,
     "sold": 7,
     "description": "Balo học sinh thời trang",
     "price": 150000,
     "discount": 10,
-    "category": { "$oid": "66af270df88554d0fd490202" },
+    "category": {
+      "$oid": "66af270df88554d0fd490202"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490410"
+      },
+      {
+        "$oid": "66af270df88554d0fd490411"
+      }
+    ],
     "views": 25,
     "status": "available",
-    "createdAt": { "$date": "2025-01-03T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-03T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-03T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-03T00:00:00Z"
+    }
   },
-
-
   {
-    "_id": { "$oid": "66af270df88554d0fd490307" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490307"
+    },
     "name": "Quần thể chất UTE",
     "quantity": 90,
     "sold": 60,
     "description": "Quần thể chất với chất liệu thoáng khí, siêu bền bất chấp mọi tư thế",
     "price": 100000,
     "discount": 10,
-    "category": { "$oid": "66af270df88554d0fd490203" },
+    "category": {
+      "$oid": "66af270df88554d0fd490203"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490412"
+      },
+      {
+        "$oid": "66af270df88554d0fd490413"
+      }
+    ],
     "views": 100,
     "status": "available",
-    "createdAt": { "$date": "2025-01-01T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-01T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-01T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-01T00:00:00Z"
+    }
   },
   {
-    "_id": { "$oid": "66af270df88554d0fd490308" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490308"
+    },
     "name": "Quần jean nam UTE",
     "quantity": 20,
     "sold": 3,
     "description": "Phù hợp xu thế, thiết kế hiện đại, đánh bại mọi đối thủ cạnh tranh crush của bạn",
     "price": 400000,
     "discount": 15,
-    "category": { "$oid": "66af270df88554d0fd490203" },
+    "category": {
+      "$oid": "66af270df88554d0fd490203"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490414"
+      },
+      {
+        "$oid": "66af270df88554d0fd490415"
+      }
+    ],
     "views": 30,
     "status": "available",
-    "createdAt": { "$date": "2025-01-02T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-02T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-02T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-02T00:00:00Z"
+    }
   },
   {
-    "_id": { "$oid": "66af270df88554d0fd490309" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490309"
+    },
     "name": "Quần jean nữ UTE",
     "quantity": 15,
     "sold": 7,
     "description": "Thiết kế phù hợp với sinh viên nữ UTE, tôn lên vẻ đẹp của sinh viên, thu hút mọi ánh nhìn từ các bạn nam",
     "price": 300000,
     "discount": 5,
-    "category": { "$oid": "66af270df88554d0fd490203" },
+    "category": {
+      "$oid": "66af270df88554d0fd490203"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490416"
+      },
+      {
+        "$oid": "66af270df88554d0fd490417"
+      }
+    ],
     "views": 37,
     "status": "available",
-    "createdAt": { "$date": "2025-01-03T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-03T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-03T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-03T00:00:00Z"
+    }
   },
-
-
   {
-    "_id": { "$oid": "66af270df88554d0fd490310" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490310"
+    },
     "name": "Mũ lưỡi trai UTE",
     "quantity": 27,
     "sold": 9,
     "description": "Thiết kế bắt mắt, chất liệu trường tồn với thời gian, chống lại cái nắng của mặt trời UTE",
     "price": 60000,
     "discount": 10,
-    "category": { "$oid": "66af270df88554d0fd490204" },
+    "category": {
+      "$oid": "66af270df88554d0fd490204"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490418"
+      },
+      {
+        "$oid": "66af270df88554d0fd490419"
+      }
+    ],
     "views": 55,
     "status": "available",
-    "createdAt": { "$date": "2025-01-01T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-01T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-01T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-01T00:00:00Z"
+    }
   },
   {
-    "_id": { "$oid": "66af270df88554d0fd490311" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490311"
+    },
     "name": "Mũ tai bèo UTE",
     "quantity": 18,
     "sold": 5,
     "description": "Thiết kế vành nón rộng giúp tránh nắng tốt hơn",
     "price": 70000,
     "discount": 5,
-    "category": { "$oid": "66af270df88554d0fd490204" },
+    "category": {
+      "$oid": "66af270df88554d0fd490204"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490420"
+      },
+      {
+        "$oid": "66af270df88554d0fd490421"
+      }
+    ],
     "views": 39,
     "status": "available",
-    "createdAt": { "$date": "2025-01-02T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-02T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-02T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-02T00:00:00Z"
+    }
   },
   {
-    "_id": { "$oid": "66af270df88554d0fd490312" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490312"
+    },
     "name": "Mũ len UTE",
     "quantity": 20,
     "sold": 12,
     "description": "Làm từ chất liệu len coton, thiết kế đẹp mắt",
     "price": 300000,
     "discount": 20,
-    "category": { "$oid": "66af270df88554d0fd490204" },
+    "category": {
+      "$oid": "66af270df88554d0fd490204"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490422"
+      },
+      {
+        "$oid": "66af270df88554d0fd490423"
+      }
+    ],
     "views": 77,
     "status": "available",
-    "createdAt": { "$date": "2025-01-03T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-03T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-03T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-03T00:00:00Z"
+    }
   },
-
-
-
   {
-    "_id": { "$oid": "66af270df88554d0fd490313" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490313"
+    },
     "name": "Giày Asia UTE",
     "quantity": 120,
     "sold": 57,
     "description": "Thiết kế form dáng hợp thời, thoáng khí, phù hợp với những giờ học thể chất",
     "price": 125000,
     "discount": 2,
-    "category": { "$oid": "66af270df88554d0fd490205" },
+    "category": {
+      "$oid": "66af270df88554d0fd490205"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490424"
+      },
+      {
+        "$oid": "66af270df88554d0fd490425"
+      }
+    ],
     "views": 100,
     "status": "available",
-    "createdAt": { "$date": "2025-01-01T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-01T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-01T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-01T00:00:00Z"
+    }
   },
   {
-    "_id": { "$oid": "66af270df88554d0fd490314" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490314"
+    },
     "name": "Giày sneaker UTE",
     "quantity": 10,
     "sold": 3,
     "description": "Giày thời trang phù hợp với mọi đối tượng",
     "price": 200000,
     "discount": 5,
-    "category": { "$oid": "66af270df88554d0fd490205" },
+    "category": {
+      "$oid": "66af270df88554d0fd490205"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490426"
+      },
+      {
+        "$oid": "66af270df88554d0fd490427"
+      }
+    ],
     "views": 9,
     "status": "available",
-    "createdAt": { "$date": "2025-01-02T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-02T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-02T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-02T00:00:00Z"
+    }
   },
   {
-    "_id": { "$oid": "66af270df88554d0fd490315" },
+    "_id": {
+      "$oid": "66af270df88554d0fd490315"
+    },
     "name": "Giày da UTE",
     "quantity": 15,
     "sold": 7,
     "description": "Chất liệu da thật 100%",
     "price": 1300000,
     "discount": 7,
-    "category": { "$oid": "66af270df88554d0fd490205" },
+    "category": {
+      "$oid": "66af270df88554d0fd490205"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490428"
+      },
+      {
+        "$oid": "66af270df88554d0fd490429"
+      }
+    ],
     "views": 30,
     "status": "available",
-    "createdAt": { "$date": "2025-01-03T00:00:00Z" },
-    "updatedAt": { "$date": "2025-01-03T00:00:00Z" }
+    "createdAt": {
+      "$date": "2025-01-03T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-03T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490316"
+    },
+    "name": "Áo thun UTE Basic",
+    "quantity": 50,
+    "sold": 12,
+    "description": "Áo thun cơ bản chất liệu cotton 100%, thoáng mát",
+    "price": 80000,
+    "discount": 0,
+    "category": {
+      "$oid": "66af270df88554d0fd490202"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490430"
+      },
+      {
+        "$oid": "66af270df88554d0fd490431"
+      }
+    ],
+    "views": 45,
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490317"
+    },
+    "name": "Túi đeo chéo UTE",
+    "quantity": 25,
+    "sold": 8,
+    "description": "Túi đeo chéo thời trang, phù hợp cho sinh viên",
+    "price": 150000,
+    "discount": 25,
+    "category": {
+      "$oid": "66af270df88554d0fd490201"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490432"
+      },
+      {
+        "$oid": "66af270df88554d0fd490433"
+      }
+    ],
+    "views": 60,
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490318"
+    },
+    "name": "Ví da UTE",
+    "quantity": 30,
+    "sold": 15,
+    "description": "Ví da nam nữ đa năng, nhiều ngăn",
+    "price": 200000,
+    "discount": 30,
+    "category": {
+      "$oid": "66af270df88554d0fd490201"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490434"
+      },
+      {
+        "$oid": "66af270df88554d0fd490435"
+      }
+    ],
+    "views": 80,
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490319"
+    },
+    "name": "Đồng hồ đeo tay UTE",
+    "quantity": 10,
+    "sold": 2,
+    "description": "Đồng hồ thông minh, chống nước IP68",
+    "price": 2500000,
+    "discount": 15,
+    "category": {
+      "$oid": "66af270df88554d0fd490204"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490436"
+      },
+      {
+        "$oid": "66af270df88554d0fd490437"
+      }
+    ],
+    "views": 25,
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490320"
+    },
+    "name": "Kính mát UTE",
+    "quantity": 40,
+    "sold": 18,
+    "description": "Kính mát chống tia UV, thiết kế thời trang",
+    "price": 180000,
+    "discount": 20,
+    "category": {
+      "$oid": "66af270df88554d0fd490204"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490438"
+      },
+      {
+        "$oid": "66af270df88554d0fd490439"
+      }
+    ],
+    "views": 90,
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490321"
+    },
+    "name": "Bút ký UTE",
+    "quantity": 100,
+    "sold": 35,
+    "description": "Bút ký cao cấp, mực đen, thiết kế sang trọng",
+    "price": 50000,
+    "discount": 10,
+    "category": {
+      "$oid": "66af270df88554d0fd490201"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490440"
+      },
+      {
+        "$oid": "66af270df88554d0fd490441"
+      }
+    ],
+    "views": 120,
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490322"
+    },
+    "name": "Sổ tay UTE",
+    "quantity": 60,
+    "sold": 22,
+    "description": "Sổ tay ghi chép, bìa da, 200 trang",
+    "price": 120000,
+    "discount": 5,
+    "category": {
+      "$oid": "66af270df88554d0fd490201"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490442"
+      },
+      {
+        "$oid": "66af270df88554d0fd490443"
+      }
+    ],
+    "views": 75,
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490323"
+    },
+    "name": "Áo khoác UTE",
+    "quantity": 35,
+    "sold": 10,
+    "description": "Áo khoác gió, chống nước nhẹ, thiết kế unisex",
+    "price": 350000,
+    "discount": 18,
+    "category": {
+      "$oid": "66af270df88554d0fd490202"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490444"
+      },
+      {
+        "$oid": "66af270df88554d0fd490445"
+      }
+    ],
+    "views": 55,
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490324"
+    },
+    "name": "Quần short UTE",
+    "quantity": 45,
+    "sold": 20,
+    "description": "Quần short thể thao, chất liệu thoáng khí",
+    "price": 180000,
+    "discount": 12,
+    "category": {
+      "$oid": "66af270df88554d0fd490203"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490446"
+      },
+      {
+        "$oid": "66af270df88554d0fd490447"
+      }
+    ],
+    "views": 65,
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490325"
+    },
+    "name": "Tất UTE",
+    "quantity": 200,
+    "sold": 80,
+    "description": "Tất cotton, đóng gói 5 đôi, nhiều màu sắc",
+    "price": 60000,
+    "discount": 0,
+    "category": {
+      "$oid": "66af270df88554d0fd490203"
+    },
+    "images": [
+      {
+        "$oid": "66af270df88554d0fd490448"
+      },
+      {
+        "$oid": "66af270df88554d0fd490449"
+      }
+    ],
+    "views": 150,
+    "status": "available",
+    "createdAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    },
+    "updatedAt": {
+      "$date": "2025-01-04T00:00:00Z"
+    }
   }
 ]

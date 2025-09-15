@@ -101,7 +101,7 @@ POST /v1/api/resend-otp
 Body:
 ```json
 {
-  "userId": "user_id_here"
+  "email": "user_id_here"
 }
 ```
 
@@ -118,7 +118,7 @@ Body:
 
 ### Protected Routes (Cần xác thực)
 
-#### 6. Đăng xuất
+#### 6. Đăng xuất // Không có?
 ```
 POST /v1/api/logout
 ```
@@ -136,7 +136,7 @@ Headers:
 Authorization: Bearer <access_token>
 ```
 
-#### 8. Cập nhật profile
+#### 8. Cập nhật profile ?? =))
 ```
 PUT /v1/api/profile
 ```
@@ -236,7 +236,7 @@ Body (raw):
 
 ### Quên mật khẩu:
 - User nhập vào email, bấm chọn quên mật khẩu
-- User nhập vào email, sau đó bấm chọn nhận mã OTP
+- User nhập vào email, sau đó bấm chọn nhận mã OTP (gọi tới resendOTP)
 - User nhập vào đầy đủ 4 fields, email, otp, newPassword và re-type của newPassword
 
 ## Cấu trúc dự án

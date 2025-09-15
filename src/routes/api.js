@@ -72,7 +72,13 @@ const initApiRoutes = (app) => {
 
   router.get("/best-sellers", getBestSellingProducts);
 
+  router.get("/products/:id", getProductById);
+  router.get("/products", getProductsPerPage);
   router.get("/payment/vnpay_return", checkPayment)
+ 
+    // Protected routes (authentication required)
+    router.use(auth); // Apply auth middleware to all routes below
+    router.use(delay); // Apply delay middleware
 
 
   // Protected routes (authentication required)
@@ -84,8 +90,18 @@ const initApiRoutes = (app) => {
 
   router.put("/update-profile", authMiddleware, updateUserProfile);
 
-  router.post("/payment/create-qr", createQr)
-  
+  // Cart APIs
+  router.get("/cart", getCart);
+  router.get("/cart/count", getCartCount);
+  router.post("/cart/add", validateAddToCart, addToCart);
+  router.put("/cart/update", validateUpdateCartItem, updateCartItem);
+  router.delete("/cart/remove/:productId", removeFromCart);
+  router.delete("/cart/clear", clearCart);
+
+ router.post("/payment/create-qr", createQr)
+
+
+
   return app.use("/v1/api/", router);
 };
 
