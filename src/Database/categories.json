@@ -1,7 +1,42 @@
 [
-  { "_id": "66af270df88554d0fd490201", "name": "Balo", "slug": "balo", "description": "Các loại balo tiện dụng" },
-  { "_id": "66af270df88554d0fd490202", "name": "Áo", "slug": "ao", "description": "Áo thời trang nam nữ" },
-  { "_id": "66af270df88554d0fd490203", "name": "Quần", "slug": "quan", "description": "Quần các loại" },
-  { "_id": "66af270df88554d0fd490204", "name": "Mũ", "slug": "mu", "description": "Mũ nón thời trang" },
-  { "_id": "66af270df88554d0fd490205", "name": "Giày", "slug": "giay", "description": "Giày sneaker, thể thao" }
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490201"
+    },
+    "name": "Balo",
+    "slug": "balo",
+    "description": "Các loại balo tiện dụng"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490202"
+    },
+    "name": "Áo",
+    "slug": "ao",
+    "description": "Áo thời trang nam nữ"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490203"
+    },
+    "name": "Quần",
+    "slug": "quan",
+    "description": "Quần các loại"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490204"
+    },
+    "name": "Mũ",
+    "slug": "mu",
+    "description": "Mũ nón thời trang"
+  },
+  {
+    "_id": {
+      "$oid": "66af270df88554d0fd490205"
+    },
+    "name": "Giày",
+    "slug": "giay",
+    "description": "Giày sneaker, thể thao"
+  }
 ]
