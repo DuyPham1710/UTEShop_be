@@ -1,14 +1,65 @@
 import mongoose from "mongoose";
-import { getProductDetailService } from "../services/product/productService.js";
 import Product from "../models/product.js";
+import {
+  createProductService,
+  getAllCategoriesService,
+  getProductByIdService,
+  getProductDetailService,
+  getProductPerPageService,
+} from "../services/product/productService.js";
 
+// Tạo sản phẩm
+export const createProduct = async (req, res) => {
+  const productData = req.body;
+  const result = await createProductService(productData);
+  if (result.success) {
+    return res.status(201).json(result);
+  } else {
+    return res.status(500).json(result);
+  }
+};
 
-//Chi tiết sản phẩm
+// Lấy sản phẩm theo ID
+export const getProductById = async (req, res) => {
+  const { id } = req.params;
+  const result = await getProductByIdService(id);
+  if (result.success) {
+    return res.status(200).json(result);
+  } else {
+    return res.status(404).json(result);
+  }
+};
+
+// Lấy sản phẩm theo trang
+export const getProductsPerPage = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 5;
+  const category = req.query.category;
+
+  const result = await getProductPerPageService(page, limit, category);
+
+  if (result.success) {
+    return res.status(200).json(result);
+  } else {
+    return res.status(500).json(result);
+  }
+};
+
+// Lấy tất cả categories
+export const getCategories = async (req, res) => {
+  const result = await getAllCategoriesService();
+  if (result.success) {
+    return res.status(200).json(result);
+  } else {
+    return res.status(500).json(result);
+  }
+};
+
+// Chi tiết sản phẩm
 export const getProductDetail = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Kiểm tra ID có hợp lệ không
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ success: false, message: "Invalid product id" });
     }
@@ -24,25 +75,23 @@ export const getProductDetail = async (req, res) => {
   }
 };
 
-//Sản phẩm tương tự
+// Sản phẩm tương tự
 export const getSimilarProducts = async (req, res) => {
   try {
     const { id } = req.params;
-
-    // kiểm tra sản phẩm hiện tại
     const product = await Product.findById(id);
+
     if (!product) {
       return res.status(404).json({ message: "Sản phẩm không tồn tại" });
     }
 
-    // lấy sản phẩm tương
     const similarProducts = await Product.aggregate([
       {
         $match: {
           category: new mongoose.Types.ObjectId(product.category),
           _id: { $ne: product._id },
-          status: "available"
-        }
+          status: "available",
+        },
       },
       { $limit: 6 },
       {
@@ -50,8 +99,8 @@ export const getSimilarProducts = async (req, res) => {
           from: "categories",
           localField: "category",
           foreignField: "_id",
-          as: "category"
-        }
+          as: "category",
+        },
       },
       { $unwind: "$category" },
       {
@@ -59,8 +108,8 @@ export const getSimilarProducts = async (req, res) => {
           from: "productimages",
           localField: "_id",
           foreignField: "product",
-          as: "images"
-        }
+          as: "images",
+        },
       },
       {
         $project: {
@@ -70,9 +119,9 @@ export const getSimilarProducts = async (req, res) => {
           sold: 1,
           views: 1,
           "category.name": 1,
-          images: 1
-        }
-      }
+          images: 1,
+        },
+      },
     ]);
 
     res.status(200).json(similarProducts);
@@ -82,7 +131,7 @@ export const getSimilarProducts = async (req, res) => {
   }
 };
 
-// Lấy 08 sản phẩm được xem nhiều nhất
+// Top 8 sản phẩm xem nhiều nhất
 export const getTopViewedProducts = async (req, res) => {
   try {
     const products = await Product.aggregate([
@@ -94,8 +143,8 @@ export const getTopViewedProducts = async (req, res) => {
           from: "categories",
           localField: "category",
           foreignField: "_id",
-          as: "category"
-        }
+          as: "category",
+        },
       },
       { $unwind: "$category" },
       {
@@ -103,8 +152,8 @@ export const getTopViewedProducts = async (req, res) => {
           from: "productimages",
           localField: "_id",
           foreignField: "product",
-          as: "images"
-        }
+          as: "images",
+        },
       },
       {
         $project: {
@@ -114,9 +163,9 @@ export const getTopViewedProducts = async (req, res) => {
           sold: 1,
           views: 1,
           "category.name": 1,
-          images: 1
-        }
-      }
+          images: 1,
+        },
+      },
     ]);
 
     res.status(200).json(products);
@@ -126,55 +175,36 @@ export const getTopViewedProducts = async (req, res) => {
   }
 };
 
-// Lấy 04 sản phẩm khuyến mãi cao nhất
-// export const getTopDiscountProducts = async (req, res) => {
-//   try {
-//     const products = await Product.find({ status: "còn" }) // chỉ lấy sản phẩm còn hàng
-//       .sort({ discount: -1 }) // sắp xếp giảm dần theo % giảm giá
-//       .limit(4) // lấy 4 sản phẩm
-//       .populate("category", "name") // lấy thêm tên danh mục
-//       .select("name price discount images sold viewCount"); // chỉ lấy các trường cần
-
-//     res.status(200).json(products);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ message: "Lỗi server" });
-//   }
-// };
-
+// Top 4 sản phẩm khuyến mãi cao nhất
 export const getTopDiscountProducts = async (req, res) => {
   try {
     const products = await Product.aggregate([
-      {
-        $match: { status: "available" } // chỉ lấy sản phẩm còn hàng
-      },
+      { $match: { status: "available" } },
       {
         $addFields: {
           discountAmount: {
-            $multiply: ["$price", { $divide: ["$discount", 100] }]
-          }
-        }
+            $multiply: ["$price", { $divide: ["$discount", 100] }],
+          },
+        },
       },
-      {
-        $sort: { discountAmount: -1 } // sắp xếp theo số tiền giảm
-      },
+      { $sort: { discountAmount: -1 } },
       { $limit: 4 },
       {
         $lookup: {
-          from: "categories",            // join Category
+          from: "categories",
           localField: "category",
           foreignField: "_id",
-          as: "category"
-        }
+          as: "category",
+        },
       },
       { $unwind: "$category" },
       {
         $lookup: {
-          from: "productimages",         // join ProductImage
+          from: "productimages",
           localField: "_id",
           foreignField: "product",
-          as: "images"
-        }
+          as: "images",
+        },
       },
       {
         $project: {
@@ -185,9 +215,9 @@ export const getTopDiscountProducts = async (req, res) => {
           sold: 1,
           views: 1,
           "category.name": 1,
-          images: 1
-        }
-      }
+          images: 1,
+        },
+      },
     ]);
 
     res.status(200).json(products);
@@ -197,6 +227,7 @@ export const getTopDiscountProducts = async (req, res) => {
   }
 };
 
+// Top 8 sản phẩm mới nhất
 export const getNewestProducts = async (req, res) => {
   try {
     const products = await Product.aggregate([
@@ -208,8 +239,8 @@ export const getNewestProducts = async (req, res) => {
           from: "categories",
           localField: "category",
           foreignField: "_id",
-          as: "category"
-        }
+          as: "category",
+        },
       },
       { $unwind: { path: "$category", preserveNullAndEmptyArrays: true } },
       {
@@ -217,8 +248,8 @@ export const getNewestProducts = async (req, res) => {
           from: "productimages",
           localField: "_id",
           foreignField: "product",
-          as: "images"
-        }
+          as: "images",
+        },
       },
       {
         $project: {
@@ -229,9 +260,9 @@ export const getNewestProducts = async (req, res) => {
           views: 1,
           createdAt: 1,
           "category.name": 1,
-          images: 1
-        }
-      }
+          images: 1,
+        },
+      },
     ]);
 
     res.status(200).json(products);
@@ -241,6 +272,7 @@ export const getNewestProducts = async (req, res) => {
   }
 };
 
+// Top 6 sản phẩm bán chạy nhất
 export const getBestSellingProducts = async (req, res) => {
   try {
     const products = await Product.aggregate([
@@ -252,8 +284,8 @@ export const getBestSellingProducts = async (req, res) => {
           from: "categories",
           localField: "category",
           foreignField: "_id",
-          as: "category"
-        }
+          as: "category",
+        },
       },
       { $unwind: { path: "$category", preserveNullAndEmptyArrays: true } },
       {
@@ -261,8 +293,8 @@ export const getBestSellingProducts = async (req, res) => {
           from: "productimages",
           localField: "_id",
           foreignField: "product",
-          as: "images"
-        }
+          as: "images",
+        },
       },
       {
         $project: {
@@ -273,9 +305,9 @@ export const getBestSellingProducts = async (req, res) => {
           views: 1,
           createdAt: 1,
           "category.name": 1,
-          images: 1
-        }
-      }
+          images: 1,
+        },
+      },
     ]);
 
     res.status(200).json(products);
@@ -284,4 +316,3 @@ export const getBestSellingProducts = async (req, res) => {
     res.status(500).json({ message: "Lỗi server" });
   }
 };
-
