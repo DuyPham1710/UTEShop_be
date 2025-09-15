@@ -108,12 +108,12 @@ export const updateCartItem = async (req, res) => {
         const userId = req.user.userId;
         const { productId, quantity } = req.body;
 
-        if (quantity < 1) {
-            return res.status(400).json({
-                success: false,
-                message: "Số lượng phải lớn hơn 0"
-            });
-        }
+        // if (quantity < 1) {
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: "Số lượng phải lớn hơn 0"
+        //     });
+        // }
 
         // Kiểm tra sản phẩm có tồn tại không
         const product = await Product.findById(productId);

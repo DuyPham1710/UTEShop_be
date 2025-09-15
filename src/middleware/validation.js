@@ -34,7 +34,7 @@ const updateCartItemDto = {
   quantity: {
     type: 'number',
     required: true,
-    validate: (value) => value > 0,
+    // validate: (value) => value > 0,
     message: 'Quantity must be greater than 0'
   }
 };
