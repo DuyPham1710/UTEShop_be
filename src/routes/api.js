@@ -100,7 +100,7 @@ const initApiRoutes = (app) => {
   router.get("/newest", getNewestProducts);
   router.get("/best-sellers", getBestSellingProducts);
 
-  router.get("/products/:id", getProductById);
+  //router.get("/products/:id", getProductById);
   router.get("/products", getProductsPerPage);
     
  
