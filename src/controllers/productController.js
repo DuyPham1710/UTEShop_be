@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Product from "../models/product.js";
 import {
   createProductService,
-  getAllCategoriesService,
+  //getAllCategoriesService,
   getProductByIdService,
   getProductDetailService,
   getProductPerPageService,
@@ -45,15 +45,15 @@ export const getProductsPerPage = async (req, res) => {
   }
 };
 
-// Lấy tất cả categories
-export const getCategories = async (req, res) => {
-  const result = await getAllCategoriesService();
-  if (result.success) {
-    return res.status(200).json(result);
-  } else {
-    return res.status(500).json(result);
-  }
-};
+// // Lấy tất cả categories
+// export const getCategories = async (req, res) => {
+//   const result = await getAllCategoriesService();
+//   if (result.success) {
+//     return res.status(200).json(result);
+//   } else {
+//     return res.status(500).json(result);
+//   }
+// };
 
 // Chi tiết sản phẩm
 export const getProductDetail = async (req, res) => {

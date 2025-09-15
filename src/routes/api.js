@@ -18,7 +18,7 @@ import { getReviewsByProduct } from "../controllers/reviewController.js";
 import {
   createProduct,
   getBestSellingProducts,
-  getCategories,
+  //getCategories,
   getNewestProducts,
   getProductById,
   getProductDetail,
@@ -52,6 +52,9 @@ import {
   validateUpdateCartItem,
   validateVerifyOtp
 } from "../middleware/validation.js";
+
+import { categoryController } from "../controllers/categoryController.js";
+
 // Services
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
@@ -80,9 +83,14 @@ const initApiRoutes = (app) => {
   //load review
   router.get("/products/:productId/reviews", getReviewsByProduct);
 
+  // Category routes
+  router.post("/categories", categoryController.create);
+  router.get("/categories", categoryController.list);
+  router.get("/categories/:slug-:id", categoryController.detail);
+
   // Products without id
   router.post("/create-products", createProduct);
-  router.get("/products/categories", getCategories);
+  // router.get("/products/categories", getCategories);
 
   //get product detail
   router.get("/products/:id", getProductDetail);

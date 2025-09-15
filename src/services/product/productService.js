@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import Product from "../../models/product.js";
 import ProductImage from "../../models/productImage.js";
 import Review from "../../models/review.js";
-
+import Category from "../../models/category.js";
 dotenv.config();
 
 export const createProductService = async (productData) => {
@@ -41,12 +41,19 @@ export const getProductByIdService = async (productId) => {
 
 export const getProductPerPageService = async (page = 1, limit = 5, category) => {
   try {
-    const skip = (page - 1) * limit;
-
+    const skip = (page - 1) * limit;    
+    const id = category?.split("-").pop(); // "66af270df88554d0fd490201"
     // nếu có category thì filter
-    const filter = category ? { category } : {};
+    const filter = id ? { category: id } : {};
 
-    const products = await Product.find(filter).skip(skip).limit(limit).lean();
+    const products = await Product.find(filter)
+        .populate({
+            path: "images",
+            model: ProductImage,
+            select: "url alt -_id"
+        }).
+        populate("category", "name slug") // chỉ lấy field name + slug
+        .skip(skip).limit(limit).lean();
 
     const totalProducts = await Product.countDocuments(filter);
 
@@ -65,16 +72,27 @@ export const getProductPerPageService = async (page = 1, limit = 5, category) =>
   }
 };
 
-export const getAllCategoriesService = async () => {
-  try {
-    const categories = await Product.distinct("category");
-    console.log(categories);
-    return { success: true, data: categories };
-  } catch (error) {
-    console.error("Error fetching categories:", error);
-    return { success: false, message: "Error fetching categories" };
-  }
-};
+// export const getAllCategoriesService = async () => {
+//   try {
+//     const categories = await Product.distinct("category");
+//     console.log(categories);
+//     return { success: true, data: categories };
+//   } catch (error) {
+//     console.error("Error fetching categories:", error);
+//     return { success: false, message: "Error fetching categories" };
+//   }
+// };
+
+// export const getAllCategoriesService = async () => {
+//   try {
+//     const categories = await Category.find({}, "name description"); 
+//     // Lấy name + description, bỏ _id nếu không cần
+//     return { success: true, data: categories };
+//   } catch (error) {
+//     console.error("Error fetching categories:", error);
+//     return { success: false, message: "Error fetching categories" };
+//   }
+// };
 
 export const getProductDetailService = async (productId) => {
   // Tăng lượt xem sản phẩm +1
