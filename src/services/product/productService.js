@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 import Product from "../../models/product.js";
 import ProductImage from "../../models/productImage.js";
 import Review from "../../models/review.js";
-import Category from "../../models/category.js";
 dotenv.config();
 
 export const createProductService = async (productData) => {
@@ -28,7 +27,9 @@ export const createProductService = async (productData) => {
 
 export const getProductByIdService = async (productId) => {
   try {
-    const product = await Product.findById(productId);
+    const product = await Product.findById(productId)
+    .populate("category")
+    .populate("images");
     if (!product) {
       return { success: false, message: "Product not found" };
     }
