@@ -12,7 +12,8 @@ const productSchema = new mongoose.Schema(
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
     views: { type: Number, default: 0 },           // số lượt xem
     images: [{ type: mongoose.Schema.Types.ObjectId, ref: "ProductImage" }], // hình ảnh
-
+    slug: {type: String, unique: true },
+    
     // Trạng thái sản phẩm
     status: {
       type: String,
