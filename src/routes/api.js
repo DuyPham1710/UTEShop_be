@@ -57,6 +57,7 @@ import { categoryController } from "../controllers/categoryController.js";
 
 // Services
 import { authMiddleware } from "../middleware/authMiddleware.js";
+import { checkPayment, createQr } from "../controllers/paymentController.js";
 
 const router = express.Router();
 
@@ -102,11 +103,12 @@ const initApiRoutes = (app) => {
 
   //router.get("/products/:id", getProductById);
   router.get("/products", getProductsPerPage);
+  router.get("/payment/vnpay_return", checkPayment)
     
  
     // Protected routes (authentication required)
-    router.use(auth); // Apply auth middleware to all routes below
-    router.use(delay); // Apply delay middleware
+  router.use(auth); // Apply auth middleware to all routes below
+  router.use(delay); // Apply delay middleware
 
 
   // User management routes
@@ -121,7 +123,7 @@ const initApiRoutes = (app) => {
   router.delete("/cart/remove/:productId", removeFromCart);
   router.delete("/cart/clear", clearCart);
 
-
+  router.post("/payment/create-qr", createQr)
 
   return app.use("/v1/api/", router);
 };

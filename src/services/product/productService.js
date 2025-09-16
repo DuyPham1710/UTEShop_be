@@ -41,19 +41,19 @@ export const getProductByIdService = async (productId) => {
 
 export const getProductPerPageService = async (page = 1, limit = 5, category) => {
   try {
-    const skip = (page - 1) * limit;    
+    const skip = (page - 1) * limit;
     const id = category?.split("-").pop(); // "66af270df88554d0fd490201"
     // nếu có category thì filter
     const filter = id ? { category: id } : {};
 
     const products = await Product.find(filter)
-        .populate({
-            path: "images",
-            model: ProductImage,
-            select: "url alt -_id"
-        }).
-        populate("category", "name slug") // chỉ lấy field name + slug
-        .skip(skip).limit(limit).lean();
+      .populate({
+        path: "images",
+        model: ProductImage,
+        select: "url alt -_id"
+      }).
+      populate("category", "name slug") // chỉ lấy field name + slug
+      .skip(skip).limit(limit).lean();
 
     const totalProducts = await Product.countDocuments(filter);
 

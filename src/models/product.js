@@ -23,4 +23,6 @@ const productSchema = new mongoose.Schema(
   { timestamps: true } // => tự động thêm createdAt, updatedAt
 );
 
-export default mongoose.model("Product", productSchema);
+const Product = mongoose.models.Product || mongoose.model("Product", productSchema);
+
+export default Product;
