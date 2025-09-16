@@ -38,6 +38,9 @@ import {
   updateCartItem
 } from "../controllers/cartController.js";
 
+//order
+import { getOrdersByStatus, updateOrderStatus } from "../controllers/orderController.js";
+
 // Middlewares
 import auth from "../middleware/auth.js";
 import delay from "../middleware/delay.js";
@@ -123,8 +126,13 @@ const initApiRoutes = (app) => {
   router.delete("/cart/remove/:productId", removeFromCart);
   router.delete("/cart/clear", clearCart);
 
+  // Payment
   router.post("/payment/create-qr", createQr)
 
+  //order
+  router.get("/orders", getOrdersByStatus);
+  router.put("/orders/:orderId/status", updateOrderStatus);
+  
   return app.use("/v1/api/", router);
 };
 
