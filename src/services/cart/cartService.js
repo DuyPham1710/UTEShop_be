@@ -72,12 +72,13 @@ class CartService {
 
         const newQuantity = cart.items[itemIndex].quantity + quantity;
         if (newQuantity > product.quantity) {
-            throw new Error(`Chỉ còn ${product.quantity} sản phẩm trong kho`);
+           // throw new Error(`Chỉ còn ${product.quantity} sản phẩm trong kho`);
+           return { success: false, status: 400, message: `Chỉ còn ${product.quantity} sản phẩm trong kho` };
         }
         cart.items[itemIndex].quantity = newQuantity;
         await cart.save();
 
-        return cart;
+        return { success: true, status: 200, message: "Cập nhật thành công", data: cart };
     }
 
     // Xóa sản phẩm khỏi giỏ hàng

@@ -134,6 +134,13 @@ export const updateCartItem = async (req, res) => {
 
         const result = await cartService.updateCartItem(userId, productId, quantity);
 
+        if (!result.success) {
+            return res.status(result.status).json({
+                success: false,
+                message: result.message
+            });
+        }
+
         res.status(200).json({
             success: true,
             message: "Cập nhật giỏ hàng thành công",
