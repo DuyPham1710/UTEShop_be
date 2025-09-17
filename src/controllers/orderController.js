@@ -7,20 +7,20 @@ export const getOrdersByStatus = async (req, res) => {
 
     const orders = await orderService.getOrderByUserId(userId, status);
 
-    if(!orders || orders.length === 0) {
-        return res.status(200).json({ 
-            success: true, 
-            message: "Không tìm thấy đơn hàng" ,
-            data: {
-                orders: []
-            }
-        });
+    if (!orders || orders.length === 0) {
+      return res.status(200).json({
+        success: true,
+        message: "Không tìm thấy đơn hàng",
+        data: {
+          orders: []
+        }
+      });
     }
     await Promise.all(
       orders.map(order =>
         order.populate({
           path: "items.product",
-          select: "name price discount images",
+          select: "name price discount images slug",
           populate: { path: "images", select: "url alt" },
         })
       )

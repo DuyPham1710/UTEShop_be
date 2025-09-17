@@ -14,7 +14,9 @@ const vnpay = new VNPay({
 
 export const createQr = async (req, res) => {
   try {
-    console.log("User from req:", req.user);
+    const { items: selectedItems } = req.body; // FE gửi mảng productId
+    // console.log("Selected items:", selectedItems);
+    //  console.log("User from req:", req.user);
     const userId = req.user.userId;
     const cart = await Cart.findOne({ user: userId }).populate("items.product");
 
@@ -22,21 +24,35 @@ export const createQr = async (req, res) => {
       return res.status(400).json({ success: false, message: "Cart is empty" });
     }
 
-    const totalPrice = cart.items.reduce((sum, item) => {
-        const discountedPrice = item.product.discountPercent
-            ? item.product.price * (1 - item.product.discountPercent / 100)
-            : item.product.price;
+    // Lọc ra chỉ những item nằm trong selectedItems
+    const filteredItems = cart.items.filter(item =>
+      selectedItems.includes(item.product._id.toString())
+    );
 
-        return sum + discountedPrice * item.quantity;
+    const totalPrice = filteredItems.reduce((sum, item) => {
+      const discountedPrice = item.product.discountPercent
+        ? item.product.price * (1 - item.product.discountPercent / 100)
+        : item.product.price;
+
+      return sum + discountedPrice * item.quantity;
     }, 0);
 
 
     const order = await Order.create({
       user: userId,
-      items: cart.items,
+      items: filteredItems,
       totalPrice,
       status: "pending",
     });
+
+    await Promise.all(
+      order.items.map(async (item) => {
+        await Product.findByIdAndUpdate(
+          item.product._id,
+          { $inc: { quantity: -item.quantity } }
+        );
+      })
+    );
 
     const vnpayResponse = await vnpay.buildPaymentUrl({
       vnp_Amount: totalPrice,
@@ -84,7 +100,13 @@ export const checkPayment = async (req, res) => {
         }
       }
 
-      await Cart.findOneAndDelete({ user: order.user });
+      //    await Cart.findOneAndDelete({ user: order.user });
+      // Xóa chỉ những sản phẩm trong order ra khỏi giỏ
+      await Cart.updateOne(
+        { user: order.user },
+        { $pull: { items: { product: { $in: order.items.map(i => i.product._id) } } } }
+      );
+
       order.paymentInfo = query;
       await order.save();
 
