@@ -45,14 +45,14 @@ export const createQr = async (req, res) => {
       status: "pending",
     });
 
-    await Promise.all(
-      order.items.map(async (item) => {
-        await Product.findByIdAndUpdate(
-          item.product._id,
-          { $inc: { quantity: -item.quantity } }
-        );
-      })
-    );
+    // await Promise.all(
+    //   order.items.map(async (item) => {
+    //     await Product.findByIdAndUpdate(
+    //       item.product._id,
+    //       { $inc: { quantity: -item.quantity } }
+    //     );
+    //   })
+    // );
 
     const vnpayResponse = await vnpay.buildPaymentUrl({
       vnp_Amount: totalPrice,
@@ -95,7 +95,8 @@ export const checkPayment = async (req, res) => {
       for (const item of order.items) {
         const product = await Product.findById(item.product._id);
         if (product) {
-          product.stock = Math.max(0, product.stock - item.quantity);
+          product.quantity = Math.max(0, product.quantity - item.quantity);
+          product.sold += item.quantity;
           await product.save();
         }
       }
