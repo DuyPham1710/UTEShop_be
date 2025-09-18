@@ -1,0 +1,18 @@
+[
+  {
+    "_id": { "$oid": "66a5b1111111111111111111" },
+    "userId": { "$oid": "68b5c84551c2e75e5dc1752d" },
+    "voucherId": { "$oid": "66a5b0000000000000000001" },
+    "usedCount": 0,
+    "maxUsagePerUser": 2,
+    "assignedDate": { "$date": "2025-09-18T00:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "66a5b1111111111111111112" },
+    "userId": { "$oid": "68b5c84551c2e75e5dc1752d" },
+    "voucherId": { "$oid": "66a5b0000000000000000002" },
+    "usedCount": 1,
+    "maxUsagePerUser": 1,
+    "assignedDate": { "$date": "2025-09-10T00:00:00.000Z" }
+  }
+]

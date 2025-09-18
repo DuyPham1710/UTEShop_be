@@ -61,6 +61,7 @@ import { categoryController } from "../controllers/categoryController.js";
 // Services
 import { authMiddleware } from "../middleware/authMiddleware.js";
 import { checkPayment, createQr } from "../controllers/paymentController.js";
+import { getVouchersByUser } from "../controllers/voucherController.js";
 
 const router = express.Router();
 
@@ -128,6 +129,7 @@ const initApiRoutes = (app) => {
 
   // Payment
   router.post("/payment/create-qr", createQr)
+  router.get("/voucher/my", getVouchersByUser);
 
   //order
   router.get("/orders", getOrdersByStatus);

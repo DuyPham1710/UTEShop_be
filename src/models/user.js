@@ -14,7 +14,8 @@ const userSchema = new Schema({
   isActive: { type: Boolean, default: false },
   otp: { type: String },
   otpGeneratedTime: { type: Date, default: Date.now },
-  refreshToken: { type: String }
+  refreshToken: { type: String },
+  xu: { type: Number, default: 0 }
 });
 
 // Xuất model theo ESM

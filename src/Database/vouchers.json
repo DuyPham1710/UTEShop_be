@@ -1,0 +1,35 @@
+[
+  {
+    "_id": { "$oid": "66a5b0000000000000000001" },
+    "code": "SALE20",
+    "type": "percentage",
+    "discountValue": 20,
+    "startDate": { "$date": "2025-01-01T00:00:00.000Z" },
+    "expiryDate": { "$date": "2025-12-31T23:59:59.000Z" },
+    "minOrderValue": 500000,
+    "usageLimit": 100,
+    "isPublic": true
+  },
+  {
+    "_id": { "$oid": "66a5b0000000000000000002" },
+    "code": "DISCOUNT100K",
+    "type": "fixed",
+    "discountValue": 100000,
+    "startDate": { "$date": "2025-01-01T00:00:00.000Z" },
+    "expiryDate": { "$date": "2025-12-30T23:59:59.000Z" },
+    "minOrderValue": 1000000,
+    "usageLimit": 50,
+    "isPublic": false
+  },
+  {
+    "_id": { "$oid": "66a5b0000000000000000003" },
+    "code": "DISCOUNT200K",
+    "type": "fixed",
+    "discountValue": 100000,
+    "startDate": { "$date": "2025-01-01T00:00:00.000Z" },
+    "expiryDate": { "$date": "2025-06-30T23:59:59.000Z" },
+    "minOrderValue": 1000000,
+    "usageLimit": 50,
+    "isPublic": false
+  }
+]

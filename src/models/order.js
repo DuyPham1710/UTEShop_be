@@ -26,6 +26,8 @@ const orderSchema = new mongoose.Schema(
     // note: { type: String },
 
     paymentInfo: { type: Object }, // lưu response từ VNPay
+    voucher: { type: mongoose.Schema.Types.ObjectId, ref: "Voucher" },
+    discountAmount: { type: Number, default: 0 }, // số tiền đã giảm do voucher
   },
   { timestamps: true }
 );
