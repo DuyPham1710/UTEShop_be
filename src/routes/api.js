@@ -78,11 +78,6 @@ const initApiRoutes = (app) => {
   router.post("/refresh-token", validateRefreshToken, refreshToken);
   router.post("/forgot-password", validateForgotPassword, forgotPassword);
 
-  // User APi
-  router.post('/user/viewed-products', addToViewedProducts);
-  router.post('/user/favorite-products', toggleFavoriteProduct);
-
-
   // L?y 8 s?n ph?m xem nhi?u nh?t
   router.get("/products/top-viewed", getTopViewedProducts);
 
@@ -122,6 +117,9 @@ const initApiRoutes = (app) => {
   // User management routes
   router.get("/profile", getUserProfile);
   router.put("/update-profile", authMiddleware, updateUserProfile);
+  router.post('/user/viewed-products', addToViewedProducts);
+  router.post('/user/favorite-products', toggleFavoriteProduct);
+
 
   // Cart APIs
   router.get("/cart", getCart);

@@ -46,7 +46,7 @@ export const updateUserProfile = async (req, res) => {
 
 export const addToViewedProducts = async (req, res) => {
     try {
-        const userId = req.user._id;
+        const userId = req.user.userId;
         const { productId } = req.body;
 
         if (!productId) {
@@ -74,7 +74,7 @@ export const addToViewedProducts = async (req, res) => {
 
 export const toggleFavoriteProduct = async (req, res) => {
     try {
-        const userId = req.user._id;
+        const userId = req.user.userId;
         const { productId } = req.body;
 
         if (!productId) {
