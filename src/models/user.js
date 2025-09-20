@@ -15,7 +15,11 @@ const userSchema = new Schema({
   otp: { type: String },
   otpGeneratedTime: { type: Date, default: Date.now },
   refreshToken: { type: String },
-  xu: { type: Number, default: 0 }
+  xu: { type: Number, default: 0 },
+
+  
+  viewedProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product"}],
+  favProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product"}]
 });
 
 // Xuất model theo ESM

@@ -9,7 +9,7 @@ import {
   verifyOTP,
 } from "../controllers/authController.js";
 //user
-import { getUserProfile, updateUserProfile } from "../controllers/userController.js";
+import { getUserProfile, updateUserProfile, toggleFavoriteProduct, addToViewedProducts } from "../controllers/userController.js";
 
 //review
 import { getReviewsByProduct } from "../controllers/reviewController.js";
@@ -77,6 +77,10 @@ const initApiRoutes = (app) => {
   router.post("/resend-otp", validateResendOtp, resendOTP);
   router.post("/refresh-token", validateRefreshToken, refreshToken);
   router.post("/forgot-password", validateForgotPassword, forgotPassword);
+
+  // User APi
+  router.post('/user/viewed-products', addToViewedProducts);
+  router.post('/user/favorite-products', toggleFavoriteProduct);
 
 
   // L?y 8 s?n ph?m xem nhi?u nh?t
