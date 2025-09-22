@@ -12,7 +12,7 @@ import {
 import { getUserProfile, updateUserProfile, toggleFavoriteProduct, addToViewedProducts } from "../controllers/userController.js";
 
 //review
-import { getReviewsByProduct } from "../controllers/reviewController.js";
+import { getReviewsByProduct, createReview } from "../controllers/reviewController.js";
 
 // product
 import {
@@ -107,9 +107,9 @@ const initApiRoutes = (app) => {
   //router.get("/products/:id", getProductById);
   router.get("/products", getProductsPerPage);
   router.get("/payment/vnpay_return", checkPayment)
-    
- 
-    // Protected routes (authentication required)
+
+
+  // Protected routes (authentication required)
   router.use(auth); // Apply auth middleware to all routes below
   router.use(delay); // Apply delay middleware
 
@@ -136,7 +136,10 @@ const initApiRoutes = (app) => {
   //order
   router.get("/orders", getOrdersByStatus);
   router.put("/orders/:orderId/status", updateOrderStatus);
-  
+
+  // review
+  router.post("/reviews", createReview);
+
   return app.use("/v1/api/", router);
 };
 
