@@ -62,6 +62,7 @@ import { categoryController } from "../controllers/categoryController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 import { checkPayment, createQr } from "../controllers/paymentController.js";
 import { getVouchersByUser } from "../controllers/voucherController.js";
+import { createNotification, getNotificationsByUser, markNotificationAsRead } from "../controllers/notificationController.js";
 
 const router = express.Router();
 
@@ -139,6 +140,11 @@ const initApiRoutes = (app) => {
 
   // review
   router.post("/reviews", createReview);
+
+  // notification
+  router.get("/notifications/:userId", getNotificationsByUser);
+  router.post("/notifications", createNotification);
+  router.put("/notifications/:id/mark-read", markNotificationAsRead);
 
   return app.use("/v1/api/", router);
 };

@@ -5,6 +5,9 @@ import Product from "../models/product.js";
 import Voucher from "../models/voucher.js";
 import UserVoucher from "../models/userVoucher.js";
 import User from "../models/user.js";
+import { sendNotification } from "../server.js";
+import Notification from "../models/notification.js";
+
 
 const vnpay = new VNPay({
   tmnCode: "TFCNA2FN",
@@ -158,15 +161,48 @@ export const checkPayment = async (req, res) => {
     const query = req.query;
     const verify = vnpay.verifyReturnUrl(query);
 
-    if (!verify.isVerified) return res.redirect("http://localhost:3000/cart?status=invalid");
+    if (!verify.isVerified) {
+      return res.send(`
+        <html>
+          <body>
+            <script>
+              window.opener.postMessage({ status: 'invalid' }, '*');
+              window.close();
+            </script>
+          </body>
+        </html>
+      `);
+    }
 
     const orderId = query.vnp_TxnRef;
     const order = await Order.findById(orderId);
 
-    if (!order) return res.redirect("http://localhost:3000/cart?status=notfound");
+    if (!order) {
+      return res.send(`
+        <html>
+          <body>
+            <script>
+              window.opener.postMessage({ status: 'notfound' }, '*');
+              window.close();
+            </script>
+          </body>
+        </html>
+      `);
+    }
+
+    const user = await User.findById(order.user);
 
     if (query.vnp_ResponseCode === "00") {
       order.status = "paid";
+
+      const notification = await Notification.create({
+        user: user._id,
+        type: "ORDER_CREATED",
+        message: "Bạn vừa tạo đơn hàng thành công!",
+        order: order._id,
+      });
+
+      sendNotification(user.id, notification);
 
       for (const item of order.items) {
         const product = await Product.findById(item.product._id);
@@ -193,15 +229,45 @@ export const checkPayment = async (req, res) => {
       order.paymentInfo = query;
       await order.save();
 
-      return res.redirect("http://localhost:3000/cart?status=paid");
+      // Trả về trang tạm để tự đóng tab
+      return res.send(`
+        <html>
+          <body>
+            <script>
+              window.opener.postMessage({ status: 'paid', orderId: '${order._id}' }, '*');
+              window.close();
+            </script>
+          </body>
+        </html>
+      `);
     } else {
       order.status = "failed";
       order.paymentInfo = query;
       await order.save();
-      return res.redirect("http://localhost:3000/cart?status=failed");
+
+      return res.send(`
+        <html>
+          <body>
+            <script>
+              window.opener.postMessage({ status: 'failed', orderId: '${order._id}' }, '*');
+              window.close();
+            </script>
+          </body>
+        </html>
+      `);
     }
   } catch (error) {
     console.error("checkPayment error:", error);
-    return res.redirect("http://localhost:3000/cart?status=error");
+    return res.send(`
+      <html>
+        <body>
+          <script>
+            window.opener.postMessage({ status: 'error' }, '*');
+            window.close();
+          </script>
+        </body>
+      </html>
+    `);
   }
 };
+
