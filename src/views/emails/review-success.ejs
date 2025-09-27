@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cảm ơn bạn đã đánh giá sản phẩm tại UTEShop</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            color: #e74c3c;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            margin-bottom: 30px;
+        }
+
+        .review-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .review-detail {
+            margin: 10px 0;
+        }
+
+        .reward-section {
+            background-color: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #27ae60;
+        }
+
+        .reward-title {
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .voucher-info {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 1px solid #ffeaa7;
+        }
+
+        .points-info {
+            background-color: #d1ecf1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 1px solid #bee5eb;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #c0392b;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .social-links {
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            color: #e74c3c;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .rating {
+            color: #f39c12;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">⭐ UTEShop</div>
+            <h1 class="title">Cảm ơn bạn đã đánh giá!</h1>
+        </div>
+
+        <div class="content">
+            <p>Xin chào <strong>
+                    <%= user.fullName %>
+                </strong>,</p>
+
+            <p>Cảm ơn bạn đã dành thời gian đánh giá sản phẩm tại <strong>UTEShop</strong>! Đánh giá của bạn rất quan
+                trọng và giúp chúng tôi cải thiện dịch vụ.</p>
+
+            <div class="review-info">
+                <h3>Thông tin đánh giá:</h3>
+                <div class="review-detail"><strong>Sản phẩm:</strong>
+                    <%= product.name %>
+                </div>
+                <div class="review-detail"><strong>Đánh giá:</strong> <span class="rating">
+                        <%= '★' .repeat(review.rating) %>
+                    </span> (<%= review.rating %>/5 sao)</div>
+                <div class="review-detail"><strong>Bình luận:</strong> "<%= review.comment %>"</div>
+                <div class="review-detail"><strong>Ngày đánh giá:</strong>
+                    <%= new Date(review.createdAt).toLocaleDateString('vi-VN') %>
+                </div>
+            </div>
+
+            <% if (reward) { %>
+                <div class="reward-section">
+                    <div class="reward-title">🎉 Phần thưởng của bạn!</div>
+                    <p>Chúc mừng! Bạn đã nhận được phần thưởng vì đánh giá sản phẩm:</p>
+
+                    <% if (reward.type==='voucher' ) { %>
+                        <div class="voucher-info">
+                            <strong>🎫 Voucher giảm giá:</strong><br>
+                            Mã voucher: <strong>
+                                <%= reward.code %>
+                            </strong><br>
+                            Giá trị: <strong>
+                                <%= reward.discountValue %>
+                                    <%= reward.discountType==='percentage' ? '%' : ' VNĐ' %>
+                            </strong><br>
+                            Hạn sử dụng: <%= new Date(reward.expiryDate).toLocaleDateString('vi-VN') %>
+                        </div>
+                        <% } else if (reward.type==='points' ) { %>
+                            <div class="points-info">
+                                <strong>💰 Điểm tích lũy:</strong><br>
+                                Bạn đã nhận được <strong>
+                                    <%= reward.amount %> xu
+                                </strong> vào tài khoản tích lũy của mình!
+                            </div>
+                            <% } %>
+
+                                <p><em>Phần thưởng đã được tự động cập nhật vào tài khoản của bạn. Hãy kiểm tra trong
+                                        phần "Voucher của tôi" hoặc "Điểm tích lũy".</em></p>
+                </div>
+                <% } %>
+
+                    <p>Đánh giá của bạn sẽ giúp những khách hàng khác có cái nhìn chính xác về sản phẩm. Chúng tôi rất
+                        trân trọng sự đóng góp của bạn!</p>
+
+                    <div style="text-align: center;">
+                        <a href="<%= shopUrl %>" class="cta-button">
+                            🛍️ Khám phá thêm sản phẩm
+                        </a>
+                    </div>
+
+                    <p>Tiếp tục mua sắm và đánh giá để nhận thêm nhiều phần thưởng hấp dẫn nhé!</p>
+        </div>
+
+        <div class="footer">
+            <div class="social-links">
+                <a href="#">Facebook</a> |
+                <a href="#">Instagram</a> |
+                <a href="#">Twitter</a>
+            </div>
+            <p>UTEShop - Nơi mua sắm tin cậy cho mọi gia đình</p>
+            <p>Email: support@uteshop.com | Hotline: 1900-xxxx</p>
+            <p>© 2024 UTEShop. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </div>
+</body>
+
+</html>

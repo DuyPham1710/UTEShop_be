@@ -41,6 +41,42 @@ class MailService {
             throw error;
         }
     }
+
+    async sendOrderSuccessEmail(user, order, shopUrl = "http://localhost:3000") {
+        try {
+            const subject = `Cảm ơn bạn đã đặt hàng tại UTEShop - Đơn hàng #${order._id}`;
+            const data = {
+                user,
+                order,
+                shopUrl
+            };
+
+            await this.sendMail(user.email, subject, "order-success.ejs", data);
+            console.log(`Order success email sent to ${user.email}`);
+        } catch (error) {
+            console.error("Error sending order success email:", error);
+            throw error;
+        }
+    }
+
+    async sendReviewSuccessEmail(user, review, product, reward, shopUrl = "http://localhost:3000") {
+        try {
+            const subject = `Cảm ơn bạn đã đánh giá sản phẩm tại UTEShop`;
+            const data = {
+                user,
+                review,
+                product,
+                reward,
+                shopUrl
+            };
+
+            await this.sendMail(user.email, subject, "review-success.ejs", data);
+            console.log(`Review success email sent to ${user.email}`);
+        } catch (error) {
+            console.error("Error sending review success email:", error);
+            throw error;
+        }
+    }
 }
 
 export default new MailService();

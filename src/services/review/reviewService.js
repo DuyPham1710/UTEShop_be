@@ -20,6 +20,23 @@ export const getReviewsByProductService = async (productId) => {
     }
 }
 
+export const getUsersWhoReviewedProductService = async (productId, excludeUserId) => {
+    try {
+        const reviews = await Review.find({
+            product: productId,
+            user: { $ne: excludeUserId } // loại trừ user hiện tại
+        }).populate("user", "fullName email _id");
+
+        // Lấy danh sách unique user IDs (tránh trùng lặp nếu user đánh giá nhiều lần)
+        const uniqueUserIds = [...new Set(reviews.map(review => review.user._id.toString()))];
+
+        return uniqueUserIds;
+    } catch (error) {
+        console.error("Error fetching users who reviewed product:", error);
+        return [];
+    }
+}
+
 export const createReviewService = async (reviewData) => {
     try {
         const { userId, ...rest } = reviewData;

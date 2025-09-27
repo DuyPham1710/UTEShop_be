@@ -13,10 +13,10 @@ const orderSchema = new mongoose.Schema(
     totalPrice: { type: Number, required: true },
     status: { type: String, enum: ["pending", "paid", "failed"], default: "pending" },
 
-    statusOrder: { 
-      type: String, 
-      enum: ["pending", "preparing", "delivering", "delivered", "cancelled"], 
-      default: "pending" 
+    statusOrder: {
+      type: String,
+      enum: ["pending", "preparing", "delivering", "delivered", "cancelled"],
+      default: "pending"
     }, // trạng thái đơn hàng
     isDelivered: { type: Boolean, default: false }, // Đơn hàng được shipper giao hay chưa
 
@@ -28,6 +28,7 @@ const orderSchema = new mongoose.Schema(
     paymentInfo: { type: Object }, // lưu response từ VNPay
     voucher: { type: mongoose.Schema.Types.ObjectId, ref: "Voucher" },
     discountAmount: { type: Number, default: 0 }, // số tiền đã giảm do voucher
+    usedXu: { type: Number, default: 0 }, // số xu đã sử dụng
   },
   { timestamps: true }
 );

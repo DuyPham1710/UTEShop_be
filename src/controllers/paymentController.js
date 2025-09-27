@@ -7,6 +7,7 @@ import UserVoucher from "../models/userVoucher.js";
 import User from "../models/user.js";
 import { sendNotification } from "../server.js";
 import Notification from "../models/notification.js";
+import mailService from "../services/mail/mailService.js";
 
 
 const vnpay = new VNPay({
@@ -228,6 +229,14 @@ export const checkPayment = async (req, res) => {
 
       order.paymentInfo = query;
       await order.save();
+
+      // Gửi email cảm ơn đặt hàng
+      try {
+        await mailService.sendOrderSuccessEmail(user, order);
+      } catch (error) {
+        console.error("Error sending order success email:", error);
+        // Không throw error để không ảnh hưởng đến response chính
+      }
 
       // Trả về trang tạm để tự đóng tab
       return res.send(`

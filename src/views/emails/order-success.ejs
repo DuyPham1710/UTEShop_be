@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cảm ơn bạn đã đặt hàng tại UTEShop</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            color: #27ae60;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            margin-bottom: 30px;
+        }
+
+        .order-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .order-detail {
+            margin: 10px 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #2980b9;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .social-links {
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            color: #3498db;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🛍️ UTEShop</div>
+            <h1 class="title">Cảm ơn bạn đã đặt hàng!</h1>
+        </div>
+
+        <div class="content">
+            <p>Xin chào <strong>
+                    <%= user.fullName %>
+                </strong>,</p>
+
+            <p>Cảm ơn bạn đã tin tưởng và đặt hàng tại <strong>UTEShop</strong> của chúng tôi! Đơn hàng của bạn đã được
+                tiếp nhận và đang được xử lý.</p>
+
+            <div class="order-info">
+                <h3>Thông tin đơn hàng:</h3>
+                <div class="order-detail"><strong>Mã đơn hàng:</strong> #<%= order._id %>
+                </div>
+                <div class="order-detail"><strong>Ngày đặt:</strong>
+                    <%= new Date(order.createdAt).toLocaleDateString('vi-VN') %>
+                </div>
+                <div class="order-detail"><strong>Tổng tiền:</strong>
+                    <%= order.totalPrice.toLocaleString('vi-VN') %> VNĐ
+                </div>
+                <div class="order-detail"><strong>Trạng thái:</strong>
+                    <%= order.statusOrder %>
+                </div>
+            </div>
+
+            <p>Chúng tôi sẽ gửi email cập nhật khi đơn hàng của bạn được xử lý và vận chuyển. Bạn có thể theo dõi trạng
+                thái đơn hàng trong tài khoản của mình.</p>
+
+            <div style="text-align: center;">
+                <a href="<%= shopUrl %>" class="cta-button">
+                    🛒 Khám phá thêm sản phẩm
+                </a>
+            </div>
+
+            <p>Nếu bạn có bất kỳ câu hỏi nào về đơn hàng, vui lòng liên hệ với chúng tôi qua email hoặc hotline.</p>
+        </div>
+
+        <div class="footer">
+            <div class="social-links">
+                <a href="#">Facebook</a> |
+                <a href="#">Instagram</a> |
+                <a href="#">Twitter</a>
+            </div>
+            <p>UTEShop - Nơi mua sắm tin cậy cho mọi gia đình</p>
+            <p>Email: support@uteshop.com | Hotline: 1900-xxxx</p>
+            <p>© 2024 UTEShop. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </div>
+</body>
+
+</html>
