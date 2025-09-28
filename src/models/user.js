@@ -20,7 +20,7 @@ const userSchema = new Schema({
   
   viewedProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product"}],
   favProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product"}]
-});
+}, {timestamps: true });
 
 // Xuất model theo ESM
 export default mongoose.model("User", userSchema, "users");

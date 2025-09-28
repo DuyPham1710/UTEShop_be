@@ -275,10 +275,12 @@ export const getNewestProducts = async (req, res) => {
 // Top 6 sản phẩm bán chạy nhất
 export const getBestSellingProducts = async (req, res) => {
   try {
+    const limit = parseInt(req.query.limit) || 6;
+
     const products = await Product.aggregate([
       { $match: { status: "available" } },
       { $sort: { sold: -1 } },
-      { $limit: 6 },
+      { $limit: limit  },
       {
         $lookup: {
           from: "categories",

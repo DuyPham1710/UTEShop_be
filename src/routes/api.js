@@ -63,7 +63,7 @@ import { authMiddleware } from "../middleware/authMiddleware.js";
 import { checkPayment, createQr } from "../controllers/paymentController.js";
 import { getVouchersByUser } from "../controllers/voucherController.js";
 import { createNotification, getNotificationsByUser, markNotificationAsRead } from "../controllers/notificationController.js";
-import { getRevenueStats } from "../controllers/adminController.js";
+import { getNewUsers, getRevenueStats } from "../controllers/adminController.js";
 const router = express.Router();
 
 const initApiRoutes = (app) => {
@@ -73,7 +73,7 @@ const initApiRoutes = (app) => {
 
   // Admin endpoints (have not implement authorization yet)
   router.get("/admin/stats/revenue", getRevenueStats);
-
+  router.get("/admin/stats/users", getNewUsers)
   // Authentication routes with validation
   router.post("/register", validateRegister, registerUser);
   router.post("/login", validateLogin, loginUser);

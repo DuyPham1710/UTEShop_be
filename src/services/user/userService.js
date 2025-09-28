@@ -133,6 +133,41 @@ class UserService {
             };
         }
     }
+
+    static async getNewUsersStats({ from, to, groupBy = "day" }) {
+        const fromDate = from ? new Date(from) : new Date("1970-01-01");
+        const toDate = to ? new Date(to) : new Date();
+
+        let dateFormat;
+        if (groupBy === "day") {
+            dateFormat = "%Y-%m-%d";
+        } else if (groupBy === "month") {
+            dateFormat = "%Y-%m";
+        } else {
+            throw new Error("Invalid groupBy. Use 'day' or 'month'.");
+        }
+
+        const stats = await User.aggregate([
+            {
+            $match: {
+                createdAt: { $gte: fromDate, $lte: toDate },
+            },
+            },
+            {
+            $group: {
+                _id: { $dateToString: { format: dateFormat, date: "$createdAt" } },
+                newUsers: { $sum: 1 },
+            },
+            },
+            { $sort: { _id: 1 } },
+        ]);
+
+        return stats.map((s) => ({
+            date: s._id,
+            users: s.newUsers,
+        }));
+    }
+
 }
 
 export default UserService;
