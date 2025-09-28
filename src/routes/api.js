@@ -63,13 +63,16 @@ import { authMiddleware } from "../middleware/authMiddleware.js";
 import { checkPayment, createQr } from "../controllers/paymentController.js";
 import { getVouchersByUser } from "../controllers/voucherController.js";
 import { createNotification, getNotificationsByUser, markNotificationAsRead } from "../controllers/notificationController.js";
-
+import { getRevenueStats } from "../controllers/adminController.js";
 const router = express.Router();
 
 const initApiRoutes = (app) => {
   router.get("/", (req, res) => {
     return res.status(200).json({ message: "UTEShop API" });
   });
+
+  // Admin endpoints (have not implement authorization yet)
+  router.get("/admin/stats/revenue", getRevenueStats);
 
   // Authentication routes with validation
   router.post("/register", validateRegister, registerUser);
