@@ -1,7 +1,6 @@
 import Order from "../../models/order.js";
-import product from "../../models/product.js";
 import Product from "../../models/product.js";
-
+import User from "../../models/user.js";
 class OrderService {
     // Lấy đơn hàng theo user ID
     async getOrderByUserId(userId, status) {
@@ -16,7 +15,7 @@ class OrderService {
         // chỉ cho phép update đơn hàng thuộc user đang đăng nhập
         return await Order.findOneAndUpdate(
         { _id: orderId, user: userId },
-        { statusOrder: newStatus },
+        { statusOrder: newStatus},
         { new: true }
         );
     }
@@ -33,18 +32,25 @@ class OrderService {
         if (!order) return { error: "Không tìm thấy đơn hàng" };
 
         // Hủy đơn: cộng lại tồn kho
-        if (newStatus === "cancelled") {
-        await Promise.all(
-            order.items.map((item) =>
-            Product.findByIdAndUpdate(
-                item.product._id,
-                { $inc: { quantity: item.quantity } }
+        if (newStatus === "cancelled" && order.statusOrder !== "cancelled") {
+            await Promise.all(
+                order.items.map((item) =>
+                Product.findByIdAndUpdate(
+                    item.product._id,
+                    { $inc: { quantity: item.quantity } }
+                )
             )
-            )
-        );
+            
+            );
+            if (order.status === "paid") {
+                // hoàn xu
+                const user = await User.findById(userId);
+                user.xu += order.totalPrice + order.usedXu;
+                await user.save();
+            }
         }
 
-        if (newStatus === "delivered") {
+        if (newStatus === "delivered" && order.statusOrder !== "delivered") {
             await Promise.all(
                 order.items.map((item) =>
                 Product.findByIdAndUpdate(
@@ -53,6 +59,12 @@ class OrderService {
                 )
                 )
             );
+            //Cộng xu cho Admin 
+            const admin = await User.findOne({ isAdmin: true });
+            if (admin) {
+                admin.xu = admin.xu + order.totalPrice + order.usedXu; // cộng doanh thu
+                await admin.save();
+            }
         }
 
         // Cập nhật trạng thái đơn

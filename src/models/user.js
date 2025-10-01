@@ -16,7 +16,7 @@ const userSchema = new Schema({
   otpGeneratedTime: { type: Date, default: Date.now },
   refreshToken: { type: String },
   xu: { type: Number, default: 0 },
-
+  isAdmin: {type: Boolean, default: false},
   
   viewedProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product"}],
   favProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product"}]

@@ -58,8 +58,11 @@ import {
 
 import { categoryController } from "../controllers/categoryController.js";
 
+//Admin order
+import { getOrderStatusByAdmin, updateOrderStatusByAdmin} from "../controllers/adminOrderController.js"
+
 // Services
-import { authMiddleware } from "../middleware/authMiddleware.js";
+import { authMiddleware, adminMiddleware } from "../middleware/authMiddleware.js";
 import { checkPayment, createQr } from "../controllers/paymentController.js";
 import { getVouchersByUser } from "../controllers/voucherController.js";
 import { createNotification, getNotificationsByUser, markNotificationAsRead } from "../controllers/notificationController.js";
@@ -71,9 +74,7 @@ const initApiRoutes = (app) => {
     return res.status(200).json({ message: "UTEShop API" });
   });
 
-  // Admin endpoints (have not implement authorization yet)
-  router.get("/admin/stats/revenue", getRevenueStats);
-  router.get("/admin/stats/users", getNewUsers)
+  
   // Authentication routes with validation
   router.post("/register", validateRegister, registerUser);
   router.post("/login", validateLogin, loginUser);
@@ -117,6 +118,7 @@ const initApiRoutes = (app) => {
   router.use(auth); // Apply auth middleware to all routes below
   router.use(delay); // Apply delay middleware
 
+  
 
   // User management routes
   router.get("/profile", getUserProfile);
@@ -149,6 +151,21 @@ const initApiRoutes = (app) => {
   router.post("/notifications", createNotification);
   router.put("/notifications/:id/mark-read", markNotificationAsRead);
 
+
+
+
+
+
+
+  //ADMIN
+  // Group admin routes
+  router.use(adminMiddleware); 
+
+  router.get("/admin/stats/revenue", getRevenueStats);
+  router.get("/admin/stats/users", getNewUsers);
+  router.get("/admin/orders", getOrderStatusByAdmin);
+  router.put("/admin/orders/:orderId/status", updateOrderStatusByAdmin);
+  
   return app.use("/v1/api/", router);
 };
 
