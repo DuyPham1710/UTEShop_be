@@ -5,17 +5,18 @@ import Product from "../../../models/product.js";
 import { now } from "mongoose";
 
 class AdminOrderService {
-  async getOrders({ statusOrder, isDelivered }) {
+  async getOrders({ status, isDelivered }) {
     const filter = {};
 
-    if (statusOrder) {
-      filter.statusOrder = statusOrder;
+    if (status) {
+      filter.statusOrder = status;
     }
 
     if (isDelivered !== undefined) {
-      filter.isDelivered = isDelivered === "true"; 
+      filter.isDelivered = isDelivered; 
     }
 
+    console.log(filter);
     return await Order.find(filter)
       .sort({ createdAt: -1 })
       .populate("user", "username email");

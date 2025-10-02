@@ -4,11 +4,19 @@ import { adminOrderService } from "../services/admin/order/adminOrderService.js"
 // admin-order.controller.js
 export const getOrderStatusByAdmin = async (req, res) => {
   try {
-    const { status, isDelivered } = req.query;
+    const { status } = req.query;
+    console.log(req.query);
     // query cơ bản
     let query = {};
     if (status) query.status = status;
-    if (isDelivered !== undefined) query.isDelivered = isDelivered === "true";
+    if(query.status === "delivering")
+      query.isDelivered = false;
+    if(query.status === "delivered"){
+      query.status = "delivering";
+      query.isDelivered = true;
+    }
+    if(query.status === "completed") 
+      query.status = "delivered" 
 
     const orders = await adminOrderService.getOrders(query);
 
