@@ -27,7 +27,7 @@ class AdminOrderService {
     if (!order) return { error: "Không tìm thấy đơn hàng" };
 
     // Nếu admin chọn hủy
-    if (newStatus === "cancelled") {
+    if (newStatus === "cancelled" && order.statusOrder !=="cancelled") {
       if (order.status === "paid") {
         // hoàn xu lại cho khách
         const user = await User.findById(order.user);
@@ -48,6 +48,8 @@ class AdminOrderService {
     // Nếu admin chọn delivered → chuyển sang "đã giao nhưng chờ khách xác nhận"
     if (newStatus === "delivered") {
       order.isDelivered = true; // chờ khách xác nhận
+      order.statusOrder = "delivering";
+      order.autoUpdate = new Date(Date.now() + 3 * 60 * 1000);
     } else {
       order.statusOrder = newStatus;
     }

@@ -29,6 +29,7 @@ const orderSchema = new mongoose.Schema(
     voucher: { type: mongoose.Schema.Types.ObjectId, ref: "Voucher" },
     discountAmount: { type: Number, default: 0 }, // số tiền đã giảm do voucher
     usedXu: { type: Number, default: 0 }, // số xu đã sử dụng
+    autoUpdate: { type: Date, default: null }
   },
   { timestamps: true }
 );

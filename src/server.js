@@ -7,6 +7,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import http from "http";
 import { Server } from "socket.io";
+import { startCronJobs } from "./utils/cronJobs.js";
 
 dotenv.config();
 
@@ -68,7 +69,7 @@ configViewEngine(app);
 initApiRoutes(app);
 
 connectDB();
-
+startCronJobs();
 const port = process.env.PORT || 6969;
 server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
