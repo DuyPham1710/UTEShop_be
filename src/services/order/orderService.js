@@ -1,6 +1,8 @@
 import Order from "../../models/order.js";
 import Product from "../../models/product.js";
 import User from "../../models/user.js";
+import Notification from "../../models/notification.js";
+import { sendNotification } from "../../server.js";
 class OrderService {
     // Lấy đơn hàng theo user ID
     async getOrderByUserId(userId, status) {
@@ -9,7 +11,7 @@ class OrderService {
             filter.statusOrder = status;
         }
         // Dùng find thay vì findOne để lấy mảng các order
-        return await Order.find(filter).sort({ createdAt: -1 });
+        return await Order.find(filter).sort({ updatedAt: -1 });
     }
     async updateStatus(userId, orderId, newStatus) {
         // chỉ cho phép update đơn hàng thuộc user đang đăng nhập
@@ -48,6 +50,17 @@ class OrderService {
                 user.xu += order.totalPrice + order.usedXu;
                 await user.save();
             }
+
+            const admin = await User.findOne({ isAdmin: true });
+            if (admin) {
+                const notification = await Notification.create({
+                    user: admin._id,
+                    type: "ORDER_STATUS",
+                    message: `Đơn hàng với mã ${order._id} đã bị người dùng hủy!!!`,
+                    order: order._id,
+                });
+                sendNotification(admin._id, notification);
+            }
         }
 
         if (newStatus === "delivered" && order.statusOrder !== "delivered") {
@@ -64,6 +77,13 @@ class OrderService {
             if (admin) {
                 admin.xu = admin.xu + order.totalPrice + order.usedXu; // cộng doanh thu
                 await admin.save();
+                const notification = await Notification.create({
+                    user: admin._id,
+                    type: "ORDER_STATUS",
+                    message: `Đơn hàng với mã ${order._id} đã được xác nhận giao, số tiền ${order.totalPrice + order.usedXu} đã được cộng vào tài khoản của bạn!!!`,
+                    order: order._id,
+                });
+                sendNotification(admin._id, notification);
             }
         }
 
@@ -100,12 +120,12 @@ class OrderService {
         {
             $match: {
             statusOrder: "delivered",
-            createdAt: { $gte: fromDate, $lte: toDate },
+            updatedAt: { $gte: fromDate, $lte: toDate },
             },
         },
         {
             $group: {
-            _id: { $dateToString: { format: dateFormat, date: "$createdAt" } },
+            _id: { $dateToString: { format: dateFormat, date: "$updatedAt" } },
             totalRevenue: { $sum: "$totalPrice" },
             count: { $sum: 1 }, // số đơn
             },

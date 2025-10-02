@@ -205,6 +205,18 @@ export const checkPayment = async (req, res) => {
 
       sendNotification(user.id, notification);
 
+
+      const admin = await User.findOne({ isAdmin : true});
+      if (admin) {
+          const notification1 = await Notification.create({
+              user: admin._id,
+              type: "ORDER_STATUS",
+              message: `Bạn có đơn hàng mới từ người dùng ${user._id}. Kiểm tra ngay!!!`,
+              order: order._id,
+          });
+          sendNotification(admin._id, notification1);
+      }
+
       for (const item of order.items) {
         const product = await Product.findById(item.product._id);
         if (product) {
