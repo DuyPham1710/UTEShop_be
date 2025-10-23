@@ -39,19 +39,22 @@ export const getUsersWhoReviewedProductService = async (productId, excludeUserId
 
 export const createReviewService = async (reviewData) => {
     try {
-        const { userId, ...rest } = reviewData;
+        const { orderId, userId, ...rest } = reviewData;
 
-        const order = await Order.findOne({
-            user: userId,
-            statusOrder: "delivered",
-            "items.product": rest.product,
-        });
+        const order = await Order.findById(orderId);
 
         if (!order) {
             return { success: false, message: "Không tìm thấy đơn hàng đã giao cho sản phẩm này" };
         }
 
-        // tìm sản phẩm trong đơn hàng đã giao và chưa đánh giá
+        if (String(order.user) !== String(userId)) {
+            return { success: false, message: "Bạn không có quyền đánh giá đơn hàng này" };
+        }
+        if (order.statusOrder !== "delivered") {
+            return { success: false, message: "Chỉ có thể đánh giá các đơn hàng đã được giao thành công" };
+        }
+
+        // Tìm sản phẩm trong đơn hàng đã giao và chưa đánh giá (logic này vẫn đúng)
         const targetItem = order.items.find(
             (it) => String(it.product) === String(rest.product) && !it.isCommented
         );

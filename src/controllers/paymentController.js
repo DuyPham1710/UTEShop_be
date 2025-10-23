@@ -168,32 +168,14 @@ export const checkPayment = async (req, res) => {
     const verify = vnpay.verifyReturnUrl(query);
 
     if (!verify.isVerified) {
-      return res.send(`
-        <html>
-          <body>
-            <script>
-              window.opener.postMessage({ status: 'invalid' }, '*');
-              window.close();
-            </script>
-          </body>
-        </html>
-      `);
+      return res.redirect(`http://localhost:3000/payment-callback?status=invalid`);
     }
 
     const orderId = query.vnp_TxnRef;
     const order = await Order.findById(orderId);
 
     if (!order) {
-      return res.send(`
-        <html>
-          <body>
-            <script>
-              window.opener.postMessage({ status: 'notfound' }, '*');
-              window.close();
-            </script>
-          </body>
-        </html>
-      `);
+      return res.redirect(`http://localhost:3000/payment-callback?status=notfound`);
     }
 
     const user = await User.findById(order.user);
@@ -255,45 +237,18 @@ export const checkPayment = async (req, res) => {
         // Không throw error để không ảnh hưởng đến response chính
       }
 
-      // Trả về trang tạm để tự đóng tab
-      return res.send(`
-        <html>
-          <body>
-            <script>
-              window.opener.postMessage({ status: 'paid', orderId: '${order._id}' }, '*');
-              window.close();
-            </script>
-          </body>
-        </html>
-      `);
+      // Redirect to cart page with success status
+      return res.redirect(`http://localhost:3000/payment-callback?status=paid`);
     } else {
       order.status = "failed";
       order.paymentInfo = query;
       await order.save();
 
-      return res.send(`
-        <html>
-          <body>
-            <script>
-              window.opener.postMessage({ status: 'failed', orderId: '${order._id}' }, '*');
-              window.close();
-            </script>
-          </body>
-        </html>
-      `);
+      return res.redirect(`http://localhost:3000/payment-callback?status=failed`);
     }
   } catch (error) {
     console.error("checkPayment error:", error);
-    return res.send(`
-      <html>
-        <body>
-          <script>
-            window.opener.postMessage({ status: 'error' }, '*');
-            window.close();
-          </script>
-        </body>
-      </html>
-    `);
+    return res.redirect(`http://localhost:3000/payment-callback?status=error`);
   }
 };
 
