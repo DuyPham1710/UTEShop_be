@@ -60,3 +60,39 @@ export const updateOrderStatus = async (req, res) => {
     res.status(500).json({ success: false, message: "Lỗi server" });
   }
 };
+
+export const getOrdersByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params; // lấy userId từ URL
+
+    const orders = await orderService.getOrderByUserId(userId);
+
+    if (!orders || orders.length === 0) {
+      return res.status(200).json({
+        success: true,
+        message: "Người dùng này chưa có đơn hàng nào",
+        data: { orders: [] },
+      });
+    }
+
+    // Populate thông tin sản phẩm trong từng đơn hàng
+    await Promise.all(
+      orders.map(order =>
+        order.populate({
+          path: "items.product",
+          select: "name price discount images slug",
+          populate: { path: "images", select: "url alt" },
+        })
+      )
+    );
+
+    res.status(200).json({
+      success: true,
+      message: `Lấy tất cả đơn hàng của user ${userId} thành công`,
+      data: { orders },
+    });
+  } catch (error) {
+    console.error("Get Orders By UserId Error:", error);
+    res.status(500).json({ success: false, message: "Lỗi server" });
+  }
+};

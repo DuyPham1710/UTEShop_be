@@ -99,3 +99,24 @@ export const toggleFavoriteProduct = async (req, res) => {
         });
     }
 };
+
+export const getAllUsers = async (req, res) => {
+    try {
+        // Validate input
+        const page = Math.max(1, Number(req.query.page) || 1);
+        const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 5));
+        const keyword = req.query.keyword?.trim() || "";
+
+        const result = await UserService.getAllUsers({ page, limit, keyword });
+
+        return res.status(200).json(result);
+    } catch (error) {
+        console.error("❌ Error in getAllUsers controller:", error);
+        return res.status(500).json({
+            success: false,
+            message: error.message || "Internal server error",
+        });
+    }
+};
+
+

@@ -9,7 +9,7 @@ import {
   verifyOTP,
 } from "../controllers/authController.js";
 //user
-import { getUserProfile, updateUserProfile, toggleFavoriteProduct, addToViewedProducts } from "../controllers/userController.js";
+import { getUserProfile, updateUserProfile, toggleFavoriteProduct, addToViewedProducts, getAllUsers } from "../controllers/userController.js";
 
 //review
 import { getReviewsByProduct, createReview } from "../controllers/reviewController.js";
@@ -39,7 +39,7 @@ import {
 } from "../controllers/cartController.js";
 
 //order
-import { getOrdersByStatus, updateOrderStatus } from "../controllers/orderController.js";
+import { getOrdersByStatus, getOrdersByUserId, updateOrderStatus } from "../controllers/orderController.js";
 
 // Middlewares
 import auth from "../middleware/auth.js";
@@ -142,6 +142,8 @@ const initApiRoutes = (app) => {
   //order
   router.get("/orders", getOrdersByStatus);
   router.put("/orders/:orderId/status", updateOrderStatus);
+  router.get("/orders/user/:userId", getOrdersByUserId);
+
 
   // review
   router.post("/reviews", createReview);
@@ -165,6 +167,8 @@ const initApiRoutes = (app) => {
   router.get("/admin/stats/users", getNewUsers);
   router.get("/admin/orders", getOrderStatusByAdmin);
   router.put("/admin/orders/:orderId/status", updateOrderStatusByAdmin);
+
+  router.get("/admin/users", getAllUsers);
   
   return app.use("/v1/api/", router);
 };

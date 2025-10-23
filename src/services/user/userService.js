@@ -168,6 +168,47 @@ class UserService {
         }));
     }
 
+    static async getAllUsers({ page, limit, keyword }) {
+        const skip = (page - 1) * limit;
+        
+        // Escape regex đặc biệt
+        const escapeRegex = (text) => text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+        
+        const filter = keyword
+            ? {
+                $or: [
+                    { name: { $regex: escapeRegex(keyword), $options: "i" } },
+                    { email: { $regex: escapeRegex(keyword), $options: "i" } },
+                ],
+            }
+            : {};
+
+        const [users, total] = await Promise.all([
+            User.find(filter)
+                .select("-password -otp -otpGeneratedTime -refreshToken")
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit)
+                .lean(), // Thêm .lean() để tăng performance
+            User.countDocuments(filter),
+        ]);
+
+        return {
+            success: true,
+            message: users.length === 0 ? "No users found" : "Users fetched successfully",
+            data: users,
+            pagination: {
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total / limit),
+                hasNextPage: page < Math.ceil(total / limit),
+                hasPrevPage: page > 1,
+            },
+        };
+    }
+
+
 }
 
 export default UserService;
