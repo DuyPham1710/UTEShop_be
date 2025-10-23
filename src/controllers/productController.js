@@ -35,8 +35,9 @@ export const getProductsPerPage = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 5;
   const category = req.query.category;
+  const keyword = req.query.keyword || "";
 
-  const result = await getProductPerPageService(page, limit, category);
+  const result = await getProductPerPageService(page, limit, category, keyword);
 
   if (result.success) {
     return res.status(200).json(result);
@@ -44,6 +45,7 @@ export const getProductsPerPage = async (req, res) => {
     return res.status(500).json(result);
   }
 };
+
 
 // // Lấy tất cả categories
 // export const getCategories = async (req, res) => {
