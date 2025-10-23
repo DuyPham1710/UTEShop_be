@@ -25,8 +25,9 @@ export const getReviewsByProduct = async (req, res) => {
 };
 
 export const createReview = async (req, res) => {
-  const { productId, rating, comment } = req.body;
+  const { orderId, productId, rating, comment } = req.body;
   const reviewData = {
+    orderId,
     product: productId,
     userId: req.user.userId,
     rating,

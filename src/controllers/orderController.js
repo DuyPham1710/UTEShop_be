@@ -18,11 +18,17 @@ export const getOrdersByStatus = async (req, res) => {
     }
     await Promise.all(
       orders.map(order =>
-        order.populate({
-          path: "items.product",
-          select: "name price discount images slug",
-          populate: { path: "images", select: "url alt" },
-        })
+        order.populate([
+          {
+            path: "items.product",
+            select: "name price discount images slug",
+            populate: { path: "images", select: "url alt" },
+          },
+          {
+            path: "deliveryAddressId",
+            select: "addressName nameBuyer phoneNumber defaultAddress note"
+          }
+        ])
       )
     );
 

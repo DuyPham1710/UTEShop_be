@@ -35,8 +35,12 @@ const calculateDiscount = (voucher, totalPrice) => {
 
 export const createQr = async (req, res) => {
   try {
-    const { items: selectedItems, voucherCode, usedXu = 0 } = req.body;
+    const { items: selectedItems, voucherCode, usedXu = 0, deliveryAddressId } = req.body;
     const userId = req.user.userId;
+
+    if (!deliveryAddressId) {
+      return res.status(400).json({ success: false, message: "Vui lòng chọn địa chỉ giao hàng" });
+    }
 
     const cart = await Cart.findOne({ user: userId }).populate("items.product");
     if (!cart || cart.items.length === 0) {
@@ -131,6 +135,7 @@ export const createQr = async (req, res) => {
       usedXu: actualUsedXu,
       totalPrice,
       status: "pending",
+      deliveryAddressId: deliveryAddressId,
     });
 
     if (actualUsedXu > 0) {
@@ -163,32 +168,14 @@ export const checkPayment = async (req, res) => {
     const verify = vnpay.verifyReturnUrl(query);
 
     if (!verify.isVerified) {
-      return res.send(`
-        <html>
-          <body>
-            <script>
-              window.opener.postMessage({ status: 'invalid' }, '*');
-              window.close();
-            </script>
-          </body>
-        </html>
-      `);
+      return res.redirect(`http://localhost:3000/payment-callback?status=invalid`);
     }
 
     const orderId = query.vnp_TxnRef;
     const order = await Order.findById(orderId);
 
     if (!order) {
-      return res.send(`
-        <html>
-          <body>
-            <script>
-              window.opener.postMessage({ status: 'notfound' }, '*');
-              window.close();
-            </script>
-          </body>
-        </html>
-      `);
+      return res.redirect(`http://localhost:3000/payment-callback?status=notfound`);
     }
 
     const user = await User.findById(order.user);
@@ -206,15 +193,15 @@ export const checkPayment = async (req, res) => {
       sendNotification(user.id, notification);
 
 
-      const admin = await User.findOne({ isAdmin : true});
+      const admin = await User.findOne({ isAdmin: true });
       if (admin) {
-          const notification1 = await Notification.create({
-              user: admin._id,
-              type: "ORDER_STATUS",
-              message: `Bạn có đơn hàng mới từ người dùng ${user._id}. Kiểm tra ngay!!!`,
-              order: order._id,
-          });
-          sendNotification(admin._id, notification1);
+        const notification1 = await Notification.create({
+          user: admin._id,
+          type: "ORDER_STATUS",
+          message: `Bạn có đơn hàng mới từ người dùng ${user._id}. Kiểm tra ngay!!!`,
+          order: order._id,
+        });
+        sendNotification(admin._id, notification1);
       }
 
       for (const item of order.items) {
@@ -250,45 +237,18 @@ export const checkPayment = async (req, res) => {
         // Không throw error để không ảnh hưởng đến response chính
       }
 
-      // Trả về trang tạm để tự đóng tab
-      return res.send(`
-        <html>
-          <body>
-            <script>
-              window.opener.postMessage({ status: 'paid', orderId: '${order._id}' }, '*');
-              window.close();
-            </script>
-          </body>
-        </html>
-      `);
+      // Redirect to cart page with success status
+      return res.redirect(`http://localhost:3000/payment-callback?status=paid`);
     } else {
       order.status = "failed";
       order.paymentInfo = query;
       await order.save();
 
-      return res.send(`
-        <html>
-          <body>
-            <script>
-              window.opener.postMessage({ status: 'failed', orderId: '${order._id}' }, '*');
-              window.close();
-            </script>
-          </body>
-        </html>
-      `);
+      return res.redirect(`http://localhost:3000/payment-callback?status=failed`);
     }
   } catch (error) {
     console.error("checkPayment error:", error);
-    return res.send(`
-      <html>
-        <body>
-          <script>
-            window.opener.postMessage({ status: 'error' }, '*');
-            window.close();
-          </script>
-        </body>
-      </html>
-    `);
+    return res.redirect(`http://localhost:3000/payment-callback?status=error`);
   }
 };
 

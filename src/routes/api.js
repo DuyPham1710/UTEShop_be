@@ -59,7 +59,7 @@ import {
 import { categoryController } from "../controllers/categoryController.js";
 
 //Admin order
-import { getOrderStatusByAdmin, updateOrderStatusByAdmin} from "../controllers/adminOrderController.js"
+import { getOrderStatusByAdmin, updateOrderStatusByAdmin } from "../controllers/adminOrderController.js"
 
 // Services
 import { authMiddleware, adminMiddleware } from "../middleware/authMiddleware.js";
@@ -67,6 +67,13 @@ import { checkPayment, createQr } from "../controllers/paymentController.js";
 import { getVouchersByUser } from "../controllers/voucherController.js";
 import { createNotification, getNotificationsByUser, markNotificationAsRead } from "../controllers/notificationController.js";
 import { getNewUsers, getRevenueStats } from "../controllers/adminController.js";
+import {
+  getDeliveryAddresses,
+  createDeliveryAddress,
+  updateDeliveryAddress,
+  setDefaultDeliveryAddress,
+  deleteDeliveryAddress
+} from "../controllers/deliveryAddressController.js";
 const router = express.Router();
 
 const initApiRoutes = (app) => {
@@ -74,7 +81,7 @@ const initApiRoutes = (app) => {
     return res.status(200).json({ message: "UTEShop API" });
   });
 
-  
+
   // Authentication routes with validation
   router.post("/register", validateRegister, registerUser);
   router.post("/login", validateLogin, loginUser);
@@ -118,13 +125,20 @@ const initApiRoutes = (app) => {
   router.use(auth); // Apply auth middleware to all routes below
   router.use(delay); // Apply delay middleware
 
-  
+
 
   // User management routes
   router.get("/profile", getUserProfile);
   router.put("/update-profile", authMiddleware, updateUserProfile);
   router.post('/user/viewed-products', addToViewedProducts);
   router.post('/user/favorite-products', toggleFavoriteProduct);
+
+  // Delivery address routes
+  router.get('/user/delivery-addresses', getDeliveryAddresses);
+  router.post('/user/delivery-addresses', createDeliveryAddress);
+  router.put('/user/delivery-addresses/:id', updateDeliveryAddress);
+  router.put('/user/delivery-addresses/:id/default', setDefaultDeliveryAddress);
+  router.delete('/user/delivery-addresses/:id', deleteDeliveryAddress);
 
 
   // Cart APIs
@@ -161,7 +175,7 @@ const initApiRoutes = (app) => {
 
   //ADMIN
   // Group admin routes
-  router.use(adminMiddleware); 
+  router.use(adminMiddleware);
 
   router.get("/admin/stats/revenue", getRevenueStats);
   router.get("/admin/stats/users", getNewUsers);

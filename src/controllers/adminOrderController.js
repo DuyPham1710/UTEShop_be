@@ -9,14 +9,14 @@ export const getOrderStatusByAdmin = async (req, res) => {
     // query cơ bản
     let query = {};
     if (status) query.status = status;
-    if(query.status === "delivering")
+    if (query.status === "delivering")
       query.isDelivered = false;
-    if(query.status === "delivered"){
+    if (query.status === "delivered") {
       query.status = "delivering";
       query.isDelivered = true;
     }
-    if(query.status === "completed") 
-      query.status = "delivered" 
+    if (query.status === "completed")
+      query.status = "delivered"
 
     const orders = await adminOrderService.getOrders(query);
 
@@ -28,14 +28,20 @@ export const getOrderStatusByAdmin = async (req, res) => {
       });
     }
 
-    // populate thêm product + images
+    // populate thêm product + images + delivery address
     await Promise.all(
       orders.map((order) =>
-        order.populate({
-          path: "items.product",
-          select: "name price discount images slug",
-          populate: { path: "images", select: "url alt" },
-        })
+        order.populate([
+          {
+            path: "items.product",
+            select: "name price discount images slug",
+            populate: { path: "images", select: "url alt" },
+          },
+          {
+            path: "deliveryAddressId",
+            select: "addressName nameBuyer phoneNumber defaultAddress note"
+          }
+        ])
       )
     );
 
