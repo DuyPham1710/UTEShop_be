@@ -19,7 +19,12 @@ const productSchema = new mongoose.Schema(
       type: String,
       enum: ["available", "out_of_stock", "deleted"],
       default: "available"
-    }
+    },
+    isNew: { type: Boolean, default: false },             // Sản phẩm mới
+    isHot: { type: Boolean, default: false },             // Sản phẩm bán chạy
+    sold: { type: Number, default: 0 },                   // Số lượng đã bán
+    views: { type: Number, default: 0 },                  // Số lượt xem
+    stock: { type: Number, default: 0 }
   },
   { timestamps: true } // => tự động thêm createdAt, updatedAt
 );

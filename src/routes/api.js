@@ -56,10 +56,16 @@ import {
   validateVerifyOtp
 } from "../middleware/validation.js";
 
-import { categoryController } from "../controllers/categoryController.js";
+import { addCategory, categoryController } from "../controllers/categoryController.js";
 
 //Admin order
 import { getOrderStatusByAdmin, updateOrderStatusByAdmin } from "../controllers/adminOrderController.js"
+import { 
+  getAllProductsAdmin, 
+  addProduct, 
+  updateProduct, 
+  deleteProduct
+ } from "../controllers/adminProductController.js";
 
 // Services
 import { authMiddleware, adminMiddleware } from "../middleware/authMiddleware.js";
@@ -183,6 +189,13 @@ const initApiRoutes = (app) => {
   router.put("/admin/orders/:orderId/status", updateOrderStatusByAdmin);
 
   router.get("/admin/users", getAllUsers);
+
+  router.get("/admin/products", getAllProductsAdmin);
+  router.delete("/admin/products/:id", deleteProduct);
+  router.post("/admin/products", addProduct);
+  router.put("/admin/products/:id", updateProduct);
+
+  router.post("/admin/categories", addCategory);
   
   return app.use("/v1/api/", router);
 };
