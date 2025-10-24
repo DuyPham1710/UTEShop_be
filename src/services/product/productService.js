@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import Product from "../../models/product.js";
 import ProductImage from "../../models/productImage.js";
 import Review from "../../models/review.js";
+import Fuse from "fuse.js";
 dotenv.config();
 
 export const createProductService = async (productData) => {
@@ -40,27 +41,44 @@ export const getProductByIdService = async (productId) => {
   }
 };
 
-export const getProductPerPageService = async (page = 1, limit = 5, category) => {
+export const getProductPerPageService = async (page = 1, limit = 5, category, keyword) => {
   try {
-    const skip = (page - 1) * limit;
-    const id = category?.split("-").pop(); // "66af270df88554d0fd490201"
-    // nếu có category thì filter
+    const id = category?.split("-").pop(); // lấy _id từ slug
     const filter = id ? { category: id } : {};
 
-    const products = await Product.find(filter)
+    // Lấy toàn bộ sản phẩm trước (sẽ lọc bằng Fuse.js sau)
+    const allProducts = await Product.find(filter)
       .populate({
         path: "images",
         model: ProductImage,
         select: "url alt -_id"
-      }).
-      populate("category", "name slug") // chỉ lấy field name + slug
-      .skip(skip).limit(limit).lean();
+      })
+      .populate("category", "name slug")
+      .lean();
 
-    const totalProducts = await Product.countDocuments(filter);
+    let filteredProducts = allProducts;
+
+    // Nếu có keyword, dùng fuzzy search
+    if (keyword && keyword.trim() !== "") {
+      const fuse = new Fuse(allProducts, {
+        keys: ["name"],
+        threshold: 0.3, // độ nhạy (0 = chính xác, 1 = mờ nhiều)
+      });
+
+      const results = fuse.search(keyword);
+      filteredProducts = results.map(r => r.item);
+    }
+
+    const totalProducts = filteredProducts.length;
+
+    // Phân trang kết quả
+    const start = (page - 1) * limit;
+    const end = start + limit;
+    const paginatedProducts = filteredProducts.slice(start, end);
 
     return {
       success: true,
-      data: products,
+      data: paginatedProducts,
       pagination: {
         currentPage: page,
         totalPages: Math.ceil(totalProducts / limit),
