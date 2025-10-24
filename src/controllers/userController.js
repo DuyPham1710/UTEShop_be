@@ -21,7 +21,9 @@ export const getUserProfile = async (req, res) => {
 
 export const updateUserProfile = async (req, res) => {
   try {
-    const userId = req.user._id;
+    // const userId = req.user._id;
+    const userId = req.user.userId;
+
     const updatedUser = await UserService.updateUserProfile(userId, req.body);
     console.log(userId)
     if (!updatedUser) {
@@ -118,5 +120,6 @@ export const getAllUsers = async (req, res) => {
         });
     }
 };
+
 
 
