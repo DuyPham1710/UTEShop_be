@@ -50,6 +50,16 @@ export const createQr = async (req, res) => {
     const filteredItems = cart.items.filter(item =>
       selectedItems.includes(item.product._id.toString())
     );
+    for (const item of filteredItems) {
+      if (item.product.status === "deleted") {
+        return res.status(400).json({
+          success: false,
+          message: `Sản phẩm ${item.product.name} đã bị xóa`,
+        });
+      }
+    }
+    console.log("filteredItems:", filteredItems);
+
     if (!filteredItems.length) {
       return res.status(400).json({ success: false, message: "Không có sản phẩm được chọn" });
     }

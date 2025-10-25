@@ -34,6 +34,11 @@ export const getProductByIdService = async (productId) => {
     if (!product) {
       return { success: false, message: "Product not found" };
     }
+
+    if (product.status === "deleted") {
+      return { success: false, message: "Product has been deleted" };
+    }
+
     return { success: true, product };
   } catch (error) {
     console.error("Error fetching product:", error);
@@ -42,9 +47,10 @@ export const getProductByIdService = async (productId) => {
 };
 
 export const getProductPerPageService = async (page = 1, limit = 5, category, keyword) => {
+  //không lấy status deleted
   try {
     const id = category?.split("-").pop(); // lấy _id từ slug
-    const filter = id ? { category: id } : {};
+    const filter = id ? { category: id, status: { $ne: "deleted" } } : { status: { $ne: "deleted" } };
 
     // Lấy toàn bộ sản phẩm trước (sẽ lọc bằng Fuse.js sau)
     const allProducts = await Product.find(filter)
@@ -124,6 +130,10 @@ export const getProductDetailService = async (productId) => {
     .lean();
 
   if (!product) return null;
+
+  if (product.status === "deleted") {
+    return { success: false, message: "Product has been deleted" };
+  }
 
   // Lấy danh sách hình ảnh
   const images = await ProductImage.find({ product: productId }).select("url alt -_id");

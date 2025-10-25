@@ -2,6 +2,7 @@ import Product from "../models/product.js";
 import ProductImage from "../models/productImage.js";
 import Category from "../models/category.js";
 import slugify from "slugify";
+import Cart from "../models/cart.js";
 import mongoose from "mongoose";
 
 
@@ -57,7 +58,7 @@ export const addProduct = async (req, res) => {
       await product.save();
     }
 
-    res.status(201).json({ success: true, message: "Thêm sản phẩm thành công", data: product });
+    res.status(200).json({ success: true, message: "Thêm sản phẩm thành công", data: product });
   } catch (err) {
     console.error("Error addProduct:", err);
     res.status(500).json({ success: false, message: "Server error" });
@@ -140,7 +141,14 @@ export const deleteProduct = async (req, res) => {
     product.status = "deleted";
     await product.save();
 
+    //Xóa sản phẩm khỏi tất cả giỏ hàng có chứa sản phẩm này
+    const result = await Cart.updateMany(
+      { "items.product": id }, // điều kiện: cart có item chứa product này
+      { $pull: { items: { product: id } } } // xóa phần tử có product đó khỏi mảng items
+    );
+
     res.json({ success: true, message: "Đã xóa (ẩn) sản phẩm" });
+
   } catch (err) {
     console.error("Error deleteProduct:", err);
     res.status(500).json({ success: false, message: "Server error" });

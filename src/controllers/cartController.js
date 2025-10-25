@@ -70,7 +70,7 @@ export const addToCart = async (req, res) => {
 
         // Kiểm tra sản phẩm có tồn tại không
         const product = await Product.findById(productId);
-        if (!product) {
+        if (!product || product.status === "deleted") {
             return res.status(404).json({
                 success: false,
                 message: "Sản phẩm không tồn tại"
@@ -117,7 +117,10 @@ export const updateCartItem = async (req, res) => {
 
         // Kiểm tra sản phẩm có tồn tại không
         const product = await Product.findById(productId);
-        if (!product) {
+        if (!product || product.status === "deleted") {
+            if(product.status === "deleted"){
+                await cartService.removeFromCart(userId, productId);
+            }
             return res.status(404).json({
                 success: false,
                 message: "Sản phẩm không tồn tại"
