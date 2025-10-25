@@ -208,6 +208,73 @@ class UserService {
         };
     }
 
+    static async activateUser(userId, isActive) {
+        try {
+            const user = await User.findById(userId);
+            if (!user) {
+                return {
+                    success: false,
+                    message: 'User not found',
+                };
+            }
+
+            user.isActive = isActive;
+            await user.save();
+
+            return {
+                success: true,
+                message: isActive ? 'User activated successfully' : 'User deactivated successfully',
+                data: user,
+            };
+        } catch (error) {
+            console.error('Error activating user:', error);
+            return {
+                success: false,
+                message: 'Error activating user',
+            };
+        }
+    }
+
+
+    static async adminUpdateUserProfile(userId, updateData) {
+        try {
+            const allowedFields = ["fullName", "username", "email", "phoneNumber", "isActive"];
+            const filteredData = {};
+
+            for (const key of allowedFields) {
+                if (updateData[key] !== undefined) {
+                    filteredData[key] = updateData[key];
+                }
+            }
+
+            const updatedUser = await User.findByIdAndUpdate(
+                userId,
+                { $set: filteredData },
+                { new: true, runValidators: true }
+            ).select("-password -otp -otpGeneratedTime -refreshToken");
+
+            if (!updatedUser) {
+                return {
+                    success: false,
+                    message: "User not found",
+                };
+            }
+
+            return {
+                success: true,
+                message: "User profile updated successfully",
+                data: updatedUser,
+            };
+        } catch (error) {
+            console.error("Error updating user (admin):", error);
+            return {
+                success: false,
+                message: "Error updating user profile",
+            };
+        }
+    }
+
+
 
 }
 

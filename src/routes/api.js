@@ -72,7 +72,7 @@ import { authMiddleware, adminMiddleware } from "../middleware/authMiddleware.js
 import { checkPayment, createQr } from "../controllers/paymentController.js";
 import { getVouchersByUser } from "../controllers/voucherController.js";
 import { createNotification, getNotificationsByUser, markNotificationAsRead } from "../controllers/notificationController.js";
-import { getNewUsers, getRevenueStats } from "../controllers/adminController.js";
+import { adminUpdateUser, getNewUsers, getRevenueStats, toggleUserActive } from "../controllers/adminController.js";
 import {
   getDeliveryAddresses,
   createDeliveryAddress,
@@ -196,6 +196,8 @@ const initApiRoutes = (app) => {
   router.put("/admin/products/:id", updateProduct);
 
   router.post("/admin/categories", addCategory);
+  router.put("/admin/users/:userId/active", toggleUserActive);
+  router.put("/admin/users/:userId/update", adminUpdateUser);
   
   return app.use("/v1/api/", router);
 };
