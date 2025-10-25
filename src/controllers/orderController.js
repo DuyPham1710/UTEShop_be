@@ -102,3 +102,19 @@ export const getOrdersByUserId = async (req, res) => {
     res.status(500).json({ success: false, message: "Lỗi server" });
   }
 };
+
+export const getCountOrdersByUser = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const count = await orderService.countOrdersByUserId(userId);
+
+    res.status(200).json({
+      success: true,
+      message: "Lấy số lượng đơn hàng thành công",
+      data: { count },
+    });
+  } catch (error) {
+    console.error("Get Order Count Error:", error);
+    res.status(500).json({ success: false, message: "Lỗi server" });
+  }
+};

@@ -9,6 +9,28 @@ const generateVoucherCode = () => {
     return `RVW-${random}`;
 };
 
+export const getReviewsByUserService = async (userId) => {
+    try {
+        const reviews = await Review.find({ user: userId })
+            .sort({ createdAt: -1 })
+            .populate({
+                path: "product",
+                select: "name images",
+                populate: {
+                    path: "images",
+                    model: "ProductImage",
+                    select: "url alt"
+                }
+            })
+            .lean();
+
+        return reviews;
+    } catch (error) {
+        console.error("Error fetching reviews by user:", error);
+        return { success: false, message: "Error fetching reviews by user" };
+    }
+};
+
 export const getReviewsByProductService = async (productId) => {
     try {
         return await Review.find({ product: productId })

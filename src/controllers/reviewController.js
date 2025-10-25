@@ -1,5 +1,5 @@
 import { sendNotification } from "../server.js";
-import { getReviewsByProductService, createReviewService, getUsersWhoReviewedProductService } from "../services/review/reviewService.js";
+import { getReviewsByProductService, createReviewService, getUsersWhoReviewedProductService, getReviewsByUserService } from "../services/review/reviewService.js";
 import Notification from "../models/notification.js";
 import mailService from "../services/mail/mailService.js";
 import User from "../models/user.js";
@@ -9,6 +9,25 @@ export const getReviewsByProduct = async (req, res) => {
     const { productId } = req.params;
 
     const reviews = await getReviewsByProductService(productId);
+
+    res.status(200).json({
+      success: true,
+      count: reviews.length,
+      data: reviews,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Lỗi server khi lấy review",
+      error: error.message,
+    });
+  }
+};
+
+export const getReviewsByUser = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const reviews = await getReviewsByUserService(userId);
 
     res.status(200).json({
       success: true,

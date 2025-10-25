@@ -16,9 +16,9 @@ class OrderService {
     async updateStatus(userId, orderId, newStatus) {
         // chỉ cho phép update đơn hàng thuộc user đang đăng nhập
         return await Order.findOneAndUpdate(
-        { _id: orderId, user: userId },
-        { statusOrder: newStatus},
-        { new: true }
+            { _id: orderId, user: userId },
+            { statusOrder: newStatus },
+            { new: true }
         );
     }
     async findById(orderId) {
@@ -37,12 +37,12 @@ class OrderService {
         if (newStatus === "cancelled" && order.statusOrder !== "cancelled") {
             await Promise.all(
                 order.items.map((item) =>
-                Product.findByIdAndUpdate(
-                    item.product._id,
-                    { $inc: { quantity: item.quantity } }
+                    Product.findByIdAndUpdate(
+                        item.product._id,
+                        { $inc: { quantity: item.quantity } }
+                    )
                 )
-            )
-            
+
             );
             if (order.status === "paid") {
                 // hoàn xu
@@ -66,10 +66,10 @@ class OrderService {
         if (newStatus === "delivered" && order.statusOrder !== "delivered") {
             await Promise.all(
                 order.items.map((item) =>
-                Product.findByIdAndUpdate(
-                    item.product._id,
-                    { $inc: { sold: item.quantity } }
-                )
+                    Product.findByIdAndUpdate(
+                        item.product._id,
+                        { $inc: { sold: item.quantity } }
+                    )
                 )
             );
             //Cộng xu cho Admin 
@@ -93,7 +93,7 @@ class OrderService {
     }
 
     async getDeliveredOrder() {
-        return Order.find({status: "delivered"});
+        return Order.find({ status: "delivered" });
     }
 
     async getTotalRevenue() {
@@ -109,36 +109,40 @@ class OrderService {
         // Chọn định dạng group
         let dateFormat;
         if (groupBy === "day") {
-        dateFormat = "%Y-%m-%d"; // ví dụ: 2025-09-28
+            dateFormat = "%Y-%m-%d"; // ví dụ: 2025-09-28
         } else if (groupBy === "month") {
-        dateFormat = "%Y-%m";    // ví dụ: 2025-09
+            dateFormat = "%Y-%m";    // ví dụ: 2025-09
         } else {
-        throw new Error("Invalid groupBy. Use 'day' or 'month'.");
+            throw new Error("Invalid groupBy. Use 'day' or 'month'.");
         }
 
         const stats = await Order.aggregate([
-        {
-            $match: {
-            statusOrder: "delivered",
-            updatedAt: { $gte: fromDate, $lte: toDate },
+            {
+                $match: {
+                    statusOrder: "delivered",
+                    updatedAt: { $gte: fromDate, $lte: toDate },
+                },
             },
-        },
-        {
-            $group: {
-            _id: { $dateToString: { format: dateFormat, date: "$updatedAt" } },
-            totalRevenue: { $sum: "$totalPrice" },
-            count: { $sum: 1 }, // số đơn
+            {
+                $group: {
+                    _id: { $dateToString: { format: dateFormat, date: "$updatedAt" } },
+                    totalRevenue: { $sum: "$totalPrice" },
+                    count: { $sum: 1 }, // số đơn
+                },
             },
-        },
-        { $sort: { _id: 1 } }, // sắp xếp theo thời gian
+            { $sort: { _id: 1 } }, // sắp xếp theo thời gian
         ]);
 
         // format lại response
         return stats.map((s) => ({
-        date: s._id,
-        revenue: s.totalRevenue,
-        orders: s.count,
+            date: s._id,
+            revenue: s.totalRevenue,
+            orders: s.count,
         }));
+    }
+
+    async countOrdersByUserId(userId) {
+        return await Order.countDocuments({ user: userId });
     }
 };
 

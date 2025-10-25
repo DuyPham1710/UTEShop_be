@@ -12,7 +12,7 @@ import {
 import { getUserProfile, updateUserProfile, toggleFavoriteProduct, addToViewedProducts, getAllUsers } from "../controllers/userController.js";
 
 //review
-import { getReviewsByProduct, createReview } from "../controllers/reviewController.js";
+import { getReviewsByProduct, createReview, getReviewsByUser } from "../controllers/reviewController.js";
 
 // product
 import {
@@ -39,7 +39,7 @@ import {
 } from "../controllers/cartController.js";
 
 //order
-import { getOrdersByStatus, getOrdersByUserId, updateOrderStatus } from "../controllers/orderController.js";
+import { getOrdersByStatus, getOrdersByUserId, updateOrderStatus, getCountOrdersByUser } from "../controllers/orderController.js";
 
 // Middlewares
 import auth from "../middleware/auth.js";
@@ -60,12 +60,12 @@ import { addCategory, categoryController } from "../controllers/categoryControll
 
 //Admin order
 import { getOrderStatusByAdmin, updateOrderStatusByAdmin } from "../controllers/adminOrderController.js"
-import { 
-  getAllProductsAdmin, 
-  addProduct, 
-  updateProduct, 
+import {
+  getAllProductsAdmin,
+  addProduct,
+  updateProduct,
   deleteProduct
- } from "../controllers/adminProductController.js";
+} from "../controllers/adminProductController.js";
 
 // Services
 import { authMiddleware, adminMiddleware } from "../middleware/authMiddleware.js";
@@ -160,12 +160,14 @@ const initApiRoutes = (app) => {
   router.get("/voucher/my", getVouchersByUser);
 
   //order
+  router.get("/orders/count", getCountOrdersByUser);
   router.get("/orders", getOrdersByStatus);
   router.put("/orders/:orderId/status", updateOrderStatus);
   router.get("/orders/user/:userId", getOrdersByUserId);
 
 
   // review
+  router.get("/reviews", getReviewsByUser);
   router.post("/reviews", createReview);
 
   // notification
@@ -198,7 +200,7 @@ const initApiRoutes = (app) => {
   router.post("/admin/categories", addCategory);
   router.put("/admin/users/:userId/active", toggleUserActive);
   router.put("/admin/users/:userId/update", adminUpdateUser);
-  
+
   return app.use("/v1/api/", router);
 };
 
