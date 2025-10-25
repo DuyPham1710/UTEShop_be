@@ -76,9 +76,9 @@ export const updateProduct = async (req, res) => {
       category,
       quantity,
       images,
-      status,
     } = req.body;
 
+    console.log("req:", req.body);
     const product = await Product.findById(id);
     if (!product) {
       return res.status(404).json({ success: false, message: "Không tìm thấy sản phẩm" });
@@ -93,16 +93,15 @@ export const updateProduct = async (req, res) => {
     if (price !== undefined) product.price = price;
     if (discount !== undefined) product.discount = discount;
     if (quantity !== undefined) product.quantity = quantity;
-    if (isNew !== undefined) product.isNew = isNew;
-    if (isHot !== undefined) product.isHot = isHot;
-    if (status) product.status = status;
 
+    console.log("category:", category);
     if (category) {
-      const category = await Category.findById(category);
-      if (!category)
+      const foundCategory = await Category.findById(category);
+      if (!foundCategory)
         return res.status(400).json({ success: false, message: "Danh mục không hợp lệ" });
-      product.category = categoryId;
+      product.category = foundCategory._id;
     }
+
 
     // Cập nhật ảnh
     if (images && Array.isArray(images)) {
