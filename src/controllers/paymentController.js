@@ -35,7 +35,7 @@ const calculateDiscount = (voucher, totalPrice) => {
 
 export const createQr = async (req, res) => {
   try {
-    const { items: selectedItems, voucherCode, usedXu = 0, deliveryAddressId } = req.body;
+    const { items: selectedItems, voucherCode, usedXu = 0, deliveryAddressId, type } = req.body;
     const userId = req.user.userId;
 
     if (!deliveryAddressId) {
@@ -153,6 +153,65 @@ export const createQr = async (req, res) => {
       await user.save();
     }
 
+    if (type === "cod") {
+      order.status = "cod";
+
+      const notification = await Notification.create({
+        user: user._id,
+        type: "ORDER_CREATED",
+        message: "Bạn vừa tạo đơn hàng thành công!",
+        order: order._id,
+      });
+
+      sendNotification(user.id, notification);
+
+
+      const admin = await User.findOne({ isAdmin: true });
+      if (admin) {
+        const notification1 = await Notification.create({
+          user: admin._id,
+          type: "ORDER_STATUS",
+          message: `Bạn có đơn hàng mới từ người dùng ${user._id}. Kiểm tra ngay!!!`,
+          order: order._id,
+        });
+        sendNotification(admin._id, notification1);
+      }
+
+      for (const item of order.items) {
+        const product = await Product.findById(item.product._id);
+        if (product) {
+          product.quantity = Math.max(0, product.quantity - item.quantity);
+          product.sold += item.quantity;
+          await product.save();
+        }
+      }
+
+      await Cart.updateOne(
+        { user: order.user },
+        { $pull: { items: { product: { $in: order.items.map(i => i.product._id) } } } }
+      );
+
+      if (order.voucher) {
+        await UserVoucher.findOneAndUpdate(
+          { userId: order.user, voucherId: order.voucher },
+          { $inc: { usedCount: 1 } },
+          { new: true }
+        );
+      }
+
+      //order.paymentInfo = query;
+      await order.save();
+
+      // Gửi email cảm ơn đặt hàng
+      try {
+        await mailService.sendOrderSuccessEmail(user, order);
+      } catch (error) {
+        console.error("Error sending order success email:", error);
+        // Không throw error để không ảnh hưởng đến response chính
+      }
+      return res.status(201).json({ success: true, orderId: order._id });
+    }
+
     const vnpayResponse = await vnpay.buildPaymentUrl({
       vnp_Amount: totalPrice,
       vnp_IpAddr: req.ip || "127.0.0.1",
@@ -250,9 +309,10 @@ export const checkPayment = async (req, res) => {
       // Redirect to cart page with success status
       return res.redirect(`http://localhost:3000/payment-callback?status=paid`);
     } else {
-      order.status = "failed";
-      order.paymentInfo = query;
-      await order.save();
+      await order.deleteOne();
+      // order.status = "failed";
+      // order.paymentInfo = query;
+      // await order.save();
 
       return res.redirect(`http://localhost:3000/payment-callback?status=failed`);
     }
