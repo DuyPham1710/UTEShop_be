@@ -12,8 +12,8 @@ const productSchema = new mongoose.Schema(
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
     views: { type: Number, default: 0 },           // số lượt xem
     images: [{ type: mongoose.Schema.Types.ObjectId, ref: "ProductImage" }], // hình ảnh
-    slug: {type: String, unique: true },
-    
+    slug: { type: String, unique: true },
+
     // Trạng thái sản phẩm
     status: {
       type: String,
@@ -22,9 +22,9 @@ const productSchema = new mongoose.Schema(
     },
     isNew: { type: Boolean, default: false },             // Sản phẩm mới
     isHot: { type: Boolean, default: false },             // Sản phẩm bán chạy
-    sold: { type: Number, default: 0 },                   // Số lượng đã bán
-    views: { type: Number, default: 0 },                  // Số lượt xem
-    stock: { type: Number, default: 0 }
+    stock: { type: Number, default: 0 },                  // Số lượng tồn kho
+    createdAt: { type: Date, default: Date.now },         // Thời gian tạo
+    updatedAt: { type: Date, default: Date.now }        // Thời gian cập nhật
   },
   { timestamps: true } // => tự động thêm createdAt, updatedAt
 );

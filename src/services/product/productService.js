@@ -29,8 +29,8 @@ export const createProductService = async (productData) => {
 export const getProductByIdService = async (productId) => {
   try {
     const product = await Product.findById(productId)
-    .populate("category")
-    .populate("images");
+      .populate("category")
+      .populate("images");
     if (!product) {
       return { success: false, message: "Product not found" };
     }
