@@ -1,339 +1,212 @@
-# UTEShop Backend API
+# UTEShop Backend
 
-Backend API cho ứng dụng UTEShop sử dụng ExpressJS và MongoDB với chức năng xác thực OTP và JWT.
+Node.js + Express + MongoDB backend for UTEShop. Project uses controllers → services → models separation, JWT auth, OTP activation and admin features.
 
-## Tính năng
+---
 
-- Đăng ký tài khoản với OTP
-- Đăng nhập với JWT
-- Xác thực OTP qua email/phone
-- Refresh token
-- Middleware xác thực
-- Quản lý profile người dùng
-- Cập nhật thông tin cá nhân
-- Đổi mật khẩu
-- Xóa tài khoản
-- **Validation với DTO**
-- **Tách biệt Service theo domain**
+## Quick setup (Windows)
 
-## Cài đặt
+1. Clone & open project root (example path shown):
+   cd d:\University\Nam4\CNPM_new\Project\BackEnd\UTEShop_be
 
-1. Clone repository
-2. Cài đặt dependencies:
-```bash
-npm install
-```
+2. Install deps:
+   ```
+   npm install
+   ```
 
-3. Tạo file `.env` với nội dung:
-```env
-MONGO_URI=mongodb://localhost:27017/uteshop
-JWT_SECRET=your_jwt_secret_key_here_make_it_long_and_secure
-JWT_REFRESH_SECRET=your_jwt_refresh_secret_key_here_make_it_long_and_secure
-JWT_EXPIRES_IN=15m
-JWT_REFRESH_EXPIRES_IN=7d
-OTP_EXPIRES_IN=5m
-PORT=6969
-NODE_ENV=development
-```
+3. Create `.env` in project root with (example):
+   ```
+   PORT=6969
+   MONGO_URI=mongodb://localhost:27017/uteshop
+   JWT_SECRET=your_jwt_secret
+   JWT_REFRESH_SECRET=your_refresh_secret
+   JWT_EXPIRES_IN=15m
+   JWT_REFRESH_EXPIRES_IN=7d
+   OTP_EXPIRES_IN=5m
+   VNPAY_TMN_CODE=...
+   VNPAY_SECRET=...
+   VNPAY_HOST=https://sandbox.vnpayment.vn
+   NODE_ENV=development
+   ```
 
-4. Khởi động MongoDB
-5. Chạy ứng dụng:
-```bash
-npm run dev
-```
+4. Start MongoDB (local or Atlas). For local:
+   - Run MongoDB service or start via MongoDB Compass/PowerShell as configured.
 
-## API Endpoints
+5. Run app:
+   - Development (nodemon):
+     ```
+     npm run dev
+     ```
+   - Production:
+     ```
+     npm start
+     ```
 
-### Public Routes (Không cần xác thực)
+---
 
-#### 1. Đăng ký tài khoản
-```
-POST /v1/api/register
-```
-Body:
-```json
-{
-  "fullName": "Nguyễn Văn A",
-  "phoneNumber": "0123456789",
-  "gender": true,
-  "dateOfBirth": "1990-01-01",
-  "avt": "avatar.jpg",
-  "email": "user@example.com",
-  "username": "username",
-  "password": "Password123!"
-}
-```
+## Routes / Endpoints (high-level)
 
-**Validation:**
-- `fullName`: 2-100 ký tự, chỉ chữ cái và khoảng trắng
-- `email`: Định dạng email hợp lệ
-- `username`: 3-30 ký tự, chỉ chữ cái, số và dấu gạch dưới
-- `password`: Tối thiểu 6 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt
+Base path: `/v1/api` (confirm in `src/routes/api.js`)
 
-#### 2. Đăng nhập
-```
-POST /v1/api/login
-```
-Body:
-```json
-{
-  "username": "username",
-  "password": "Password123!"
-}
-```
+Authentication
+- POST /register — register + create inactive user + send OTP
+- POST /login — login with username/password → returns access & refresh tokens
+- POST /verify-otp — verify OTP to activate account
+- POST /resend-otp — resend OTP
+- POST /refresh-token — exchange refresh token for new access token
 
-#### 3. Xác thực OTP
-```
-POST /v1/api/verify-otp
-```
-Body:
-```json
-{
-  "userId": "user_id_here",
-  "otp": "123456"
-}
-```
+User (protected)
+- GET /profile — get logged-in user profile
+- PUT /profile — update profile
+- PUT /change-password — change password
+- DELETE /account — delete account
+- POST /viewed-products — add product to viewed list
+- POST /favorite-products — toggle favorite (add/remove)
 
-#### 4. Gửi lại OTP
-```
-POST /v1/api/resend-otp
-```
-Body:
-```json
-{
-  "email": "user_id_here"
-}
-```
+Product / Public
+- GET /products — list products / pagination / filters
+- GET /products/:id — product detail
+- GET /products/:id/similar — similar products
+- GET /newest, /best-sellers, /top-discount, /top-viewed — helper lists
 
-#### 5. Refresh Token
-```
-POST /v1/api/refresh-token
-```
-Body:
-```json
-{
-  "refreshToken": "refresh_token_here"
-}
-```
+Cart (protected)
+- POST /cart/add — add product to cart
+- GET /cart — get user's cart
+- PUT /cart/item — update item qty
+- DELETE /cart/item — remove item
+- DELETE /cart — clear cart
 
-### Protected Routes (Cần xác thực)
+Order
+- POST /orders/checkout — create order / payment flow
+- GET /orders — get user's orders
+- PUT /orders/:id/status — user-side status update (limited)
 
-#### 6. Đăng xuất // Không có?
-```
-POST /v1/api/logout
-```
-Headers:
-```
-Authorization: Bearer <access_token>
-```
+Admin (protected + admin role)
+- GET /admin/orders — list orders (query by status)
+- GET /admin/orders/:id — order detail
+- PUT /admin/orders/:id/status — update order status (approve, start delivery, delivered, cancel)
+- POST /create-products — admin add product
+- PUT /admin/products/:id — update product
+- DELETE /admin/products/:id — delete product
+- GET /admin/products/stats — product statistics
+- GET /admin/stats — revenue statistics
+- GET /admin/customers/stats — customer statistics
 
-#### 7. Lấy thông tin profile
-```
-GET /v1/api/profile
-```
-Headers:
-```
-Authorization: Bearer <access_token>
-```
+Payment / VNPay
+- Endpoints in `paymentController.js` handle VNPay integration (sandbox/test config supported).
 
-#### 8. Cập nhật profile ?? =))
-```
-PUT /v1/api/profile
-```
-Headers:
-```
-Authorization: Bearer <access_token>
-```
-Body:
-```json
-{
-  "fullName": "Nguyễn Văn B",
-  "phoneNumber": "0987654321",
-  "gender": false,
-  "dateOfBirth": "1995-05-15",
-  "avt": "new_avatar.jpg"
-}
-```
+Notification / Email
+- Notifications created in `notification` model and sent by `mailService` (EJS templates in `views/emails`).
 
-#### 9. Đổi mật khẩu
-```
-PUT /v1/api/change-password
-```
-Headers:
-```
-Authorization: Bearer <access_token>
-```
-Body:
-```json
-{
-  "currentPassword": "Password123!",
-  "newPassword": "NewPassword456!"
-}
-```
+---
 
-#### 10. Xóa tài khoản
-```
-DELETE /v1/api/account
-```
-Headers:
-```
-Authorization: Bearer <access_token>
-```
-Body:
-```json
-{
-  "password": "current_password"
-}
-```
-#### 11. Quên mật khẩu:
+## Controller & Service logic (summary)
 
-Nhấn nút gửi OTP → gọi API `reSendOTP`:
+General pattern:
+- Controllers: parse request, validate inputs, call service, return HTTP response.
+- Services: business logic, DB reads/writes via Mongoose models, side effects (notifications, refunds, stock updates).
 
-POST: 
-```
-http://localhost:3000/v1/api/resend-otp
-```
-Body (raw):
-```
-{
-    "email": "user@example.com"
-}
-```
-Sau đó, khi user nhập đầy đủ thông tin, nhấn đổi mật khẩu, gọi API:
+Key flows
 
-POST: 
-```
-http://localhost:3000/v1/api/forgot-password
-```
-Body (raw):
-```
-{
-    "email": "user@example.com",
-    "otp": "725976",
-    "newPassword": "datVo001!"
-}
-```
-## Luồng hoạt động
+- Auth (authService)
+  - register: validate DTO → create user (isActive=false) → generate OTP → send via mailService/console
+  - login: verify credentials → check isActive → issue JWT access & refresh
 
-### Đăng ký:
-1. User gửi thông tin đăng ký
-2. **Validation middleware** kiểm tra dữ liệu theo DTO
-3. Hệ thống tạo tài khoản với `isActive: false`
-4. Gửi OTP qua email/phone (hiện tại log ra console)
-5. User xác thực OTP để kích hoạt tài khoản
+- User (userService)
+  - profile getters/updates, add viewed/favorite product logic:
+    - addToViewedProducts: if not present push productId
+    - toggleFavoriteProduct: add if missing, remove if exists
 
-### Đăng nhập:
-1. User gửi username/email và password
-2. **Validation middleware** kiểm tra dữ liệu
-3. Hệ thống kiểm tra tài khoản đã kích hoạt chưa
-4. Nếu chưa kích hoạt, yêu cầu xác thực OTP
-5. Nếu đã kích hoạt, trả về access token và refresh token
+- Product (productService / adminProductService)
+  - create / update / delete products; `getProductPerPage` supports search & paging (current impl may fetch & filter in-memory; consider DB-side filtering for large datasets)
+  - addProduct endpoint: validate required fields, create Product, save images (if provided), return created product
 
-### Xác thực:
-- Access token có thời hạn 15 phút
-- Refresh token có thời hạn 7 ngày
-- Sử dụng refresh token để lấy access token mới
+- Cart (cartService)
+  - addToCart(userId, productId, qty):
+    - find or create Cart document for user
+    - load product, verify stock
+    - if item exists increment qty (validate new qty <= stock), otherwise push new item
+    - save cart and return updated cart
+  - update/ remove/ clear operations update Cart doc
 
-### Quên mật khẩu:
-- User nhập vào email, bấm chọn quên mật khẩu
-- User nhập vào email, sau đó bấm chọn nhận mã OTP (gọi tới resendOTP)
-- User nhập vào đầy đủ 4 fields, email, otp, newPassword và re-type của newPassword
+- Order (orderService / adminOrderService)
+  - create order: validate cart, reserve/decrement stock, handle payment data, save order
+  - change status:
+    - adminOrderService.updateOrderStatus:
+      - load order (populate items.product)
+      - allowed transitions: pending → prepared/delivering/cancelled, delivering → delivered, etc.
+      - on cancel: restore product stock quantities, if paid then refund xu (internal points) or call refund flow, create notification
+      - on delivered: mark isDelivered, set autoUpdate for later confirmation, increment product.sold if applicable
+      - persist order and create Notification; send via mailService / push
+    - orderService.changeStatusAndStock (user-side) ensures only user's own order can be updated
 
-## Cấu trúc dự án
+- Payment (paymentController / services/payment)
+  - VNPay integration: build vnpay URL, handle return/callback, validate signatures
 
-```
-src/
-├── config/
-│   ├── database.js          # Kết nối MongoDB
-│   └── viewEngine.js        # Cấu hình view engine
-├── controllers/
-│   ├── authController.js    # Xử lý xác thực (login, register, OTP)
-│   └── userController.js    # Xử lý thông tin user (profile, update)
-├── middleware/
-│   ├── auth.js              # Middleware xác thực JWT
-│   ├── delay.js             # Middleware delay
-│   └── validation.js        # Middleware validation sử dụng DTO
-├── models/
-│   └── user.js              # Schema MongoDB
-├── services/
-│   ├── auth/
-│   │   └── authService.js   # Logic xác thực (register, login, token)
-│   ├── user/
-│   │   └── userService.js   # Logic quản lý user (profile, update)
-│   └── otp/
-│       └── otpService.js    # Logic xử lý OTP
-├── dto/
-│   └── userDto.js           # Data Transfer Objects cho validation
-├── routes/
-│   └── api.js               # Định nghĩa routes với validation
-└── server.js                # Entry point
-```
+- Notifications (mailService / notification model)
+  - create Notification documents and send email via EJS templates
 
-## Phân chia Controller & Service
+---
 
-### 🔐 **authController.js** + **authService.js** - Xử lý xác thực:
-- `registerUser` - Đăng ký tài khoản
-- `loginUser` - Đăng nhập
-- `verifyOTP` - Xác thực OTP
-- `resendOTP` - Gửi lại OTP
-- `refreshToken` - Làm mới token
-- `logoutUser` - Đăng xuất
+## Important files & folders
 
-### 👤 **userController.js** + **userService.js** - Xử lý thông tin user:
-- `getUserProfile` - Lấy thông tin profile
-- `updateUserProfile` - Cập nhật thông tin profile
-- `changePassword` - Đổi mật khẩu
-- `deleteUser` - Xóa tài khoản
+- server.js — app entry
+- src/routes/api.js — route registration & grouping (note: router.use(auth) applies auth to subsequent routes)
+- src/middleware/auth.js / authMiddleware.js — token extraction and req.user population
+- src/controllers/* — HTTP handlers
+- src/services/* — domain logic (auth, cart, order, admin, product, mail, otp)
+- src/models/* — Mongoose schemas
+- src/utils/createProductWithSlug.js — helper for slug generation from products.json
+- src/views/emails — EJS templates for email notifications
 
-### 📱 **otpService.js** - Xử lý OTP:
-- `generateOTP` - Tạo OTP 6 số
-- `sendOTP` - Gửi OTP
-- `verifyOTP` - Xác thực OTP
-- `resendOTP` - Gửi lại OTP
+---
 
-## DTO (Data Transfer Objects)
+## Usage notes & gotchas
 
-### 🎯 **Mục đích:**
-- **Validation** dữ liệu đầu vào
-- **Type safety** và format checking
-- **Security** (chỉ cho phép fields cần thiết)
-- **Documentation** API rõ ràng
+- Authentication:
+  - Token is expected in header `Authorization: Bearer <token>`. Auth middleware populates `req.user`.
+  - Some controllers expect `req.user._id` while others used `req.user.userId` in older code — prefer `req.user._id`. Check `auth` middleware returns the right property.
 
-### 📋 **Các DTO đã implement:**
-- `registerUserDto` - Validation đăng ký
-- `loginUserDto` - Validation đăng nhập
-- `verifyOtpDto` - Validation OTP
-- `updateProfileDto` - Validation cập nhật profile
-- `changePasswordDto` - Validation đổi mật khẩu
-- `deleteAccountDto` - Validation xóa tài khoản
+- Day.js ESM imports:
+  - If you see "Cannot find module 'dayjs/plugin/timezone'", ensure plugin imports include `.js` extension in ESM environments (e.g. `import timezone from 'dayjs/plugin/timezone.js'`).
 
-### ✅ **Validation rules:**
-- **Email**: Định dạng email hợp lệ
-- **Password**: Tối thiểu 6 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt
-- **Username**: 3-30 ký tự, chỉ chữ cái, số và dấu gạch dưới
-- **FullName**: 2-100 ký tự, hỗ trợ tiếng Việt
-- **PhoneNumber**: Định dạng số điện thoại
-- **DateOfBirth**: Tuổi từ 13-120
-- **Avatar**: File ảnh hợp lệ
+- Concurrency & consistency:
+  - addToCart and order status changes check stock but are vulnerable to race conditions under high concurrency. Use MongoDB transactions (sessions) for atomic multi-document updates when needed (payment + stock + order + user refunds).
 
-## Lưu ý
+- Large dataset performance:
+  - `getProductPerPageService` currently may load all products and filter with Fuse.js. For production, move filtering/paging to MongoDB (text index, $regex, aggregation).
 
-- OTP hiện tại được log ra console, trong thực tế cần tích hợp SMS/Email service
-- JWT secret cần được bảo mật và thay đổi trong production
-- **Validation middleware** tự động kiểm tra tất cả request theo DTO
-- Có thể thêm rate limiting để tránh spam
-- Nên sử dụng HTTPS trong production
-- Các API được bảo vệ cần có header `Authorization: Bearer <token>`
-- **Service layer** tách biệt logic nghiệp vụ theo domain
+- Error handling:
+  - Controllers typically return 400 for validation errors and 500 for server/DB errors. Check logs for stack traces in development.
 
-## Testing
+- Admin routes:
+  - Ensure admin middleware (`adminMiddleware`) checks `req.user.isAdmin` and that your auth middleware attaches user document prior to admin check.
 
-Sử dụng Postman hoặc các tool tương tự để test API:
+- Notifications & refunds:
+  - refund/xu handling in adminOrderService should be in a transaction if you require rollback guarantees (update order, user xu, product stock, create notification).
 
-1. Test đăng ký và xác thực OTP
-2. Test đăng nhập và lấy token
-3. Test các API được bảo vệ
-4. Test refresh token
-5. Test cập nhật profile và đổi mật khẩu
-6. Test logout và xóa tài khoản
-7. **Test validation** với dữ liệu không hợp lệ
+---
+
+## Testing tips
+
+- Use Postman / Insomnia:
+  - Register → verify OTP → login → obtain access token.
+  - Attach `Authorization: Bearer <access_token>` for protected endpoints.
+- Seed data:
+  - `src/Database` contains sample JSON for products, categories, reviews. Use a simple seed script to import if needed.
+
+---
+
+## Contributing & style
+
+- Keep controllers thin; business logic lives in services.
+- Use DTO + validation middleware for input validation.
+- Prefer async/await and consistent error messages.
+- Add unit tests for core services (cart, order changes, payment flow) when possible.
+
+---
+
+If you want, I can:
+- generate a seed script to load JSON fixtures,
+- add example Postman collection,
+- convert in-memory product search to DB-side queries.

@@ -18,7 +18,7 @@ export const getNewUsers = async (req, res) => {
     res.json({ success: true, data });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
-  }
+  } 
 };
 
 export const toggleUserActive = async (req, res) => {
